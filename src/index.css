@@ -467,32 +467,89 @@ body, .hero, .work, .about, .contact, .footer, .phead--dark {
   padding: calc(var(--h) * 0.14) calc(var(--h) * 0.2);
 }
 
-.hero__title {
-  color: var(--blue);
+.hero__title,
+.hero__sizer {
   font-size: var(--h);
   font-weight: 400;
   line-height: 0.9;
   letter-spacing: -0.035em;
   text-transform: uppercase;
+  white-space: nowrap;
+}
+/* the original headline, invisible, gives the selection its size whatever the tools do */
+.hero__sizer { visibility: hidden; }
+.hero__sizer > span { display: block; padding-block: 0.02em; }
+/* the headline itself sits centred over it, scaled (--s) to fit the frame */
+.hero__title {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  isolation: isolate;
+  color: var(--blue);
+  translate: -50% -50%;
+  scale: var(--s, 1);
 }
 .hero__line { display: block; overflow: hidden; padding-block: 0.02em; }
 .hero__line > span { display: block; }
 .hero__line:first-child { color: var(--title-1); } /* "PRODUCT" in dark navy, "DESIGNER" in blue */
 
+/* the Text tool's fonts (loaded on demand, regular or medium) */
+.hero__title[data-font='serif'] { font-family: 'Instrument Serif', Georgia, serif; letter-spacing: -0.01em; }
+.hero__title[data-font='mono'] { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 500; letter-spacing: -0.06em; }
+.hero__title[data-font='round'] { font-family: 'Nunito', var(--font); font-weight: 500; letter-spacing: -0.03em; }
+/* the Components tool's second composition: one line, in title case */
+.hero__title[data-inline] { text-transform: none; }
+.hero__title[data-inline] .hero__line { display: inline-block; }
+
+/* Rectangle tool: a soft blue shape behind the headline, inside the frame's padding */
+.hero__title::before {
+  content: '';
+  position: absolute;
+  inset: -0.07em -0.1em;
+  z-index: -1;
+  background: color-mix(in srgb, var(--blue) 12%, transparent);
+  rotate: -1deg;
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+.hero__title[data-rect]::before { transform: none; }
+
+/* Pen tool: a short hand-drawn underline under DESIGNER (under "Designer" when on one line) */
+.hero__pen {
+  position: absolute;
+  left: 0.02em;
+  top: calc(100% - 0.05em);
+  width: 80%;
+  height: auto;
+  overflow: visible;
+  fill: none;
+  stroke: var(--blue);
+  stroke-width: 7;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+}
+.hero__title[data-inline] .hero__pen { left: auto; right: 0; width: 48%; }
+
 /* Decorative pieces never take the pointer */
 .hero__frame,
-.hero__tag,
-.hero__bar { pointer-events: none; }
+.hero__tag { pointer-events: none; }
 
 .hero__icon { flex: none; width: 1em; height: 1em; }
 
 /* selection outline, tilted; the headline itself stays straight */
 .hero__frame {
   position: absolute;
-  inset: 0;
+  left: 50%;
+  top: 50%;
+  width: var(--fw, 100%);
+  height: var(--fh, 100%);
   border: 1.5px solid var(--blue);
+  translate: -50% -50%;
   rotate: -2deg;
 }
+/* while another tool is in use the headline isn't selected: a faint outline, no handles */
+.hero__frame[data-idle] { border-color: color-mix(in srgb, var(--blue) 40%, transparent); }
+.hero__frame[data-idle] i { scale: 0; }
 /* eight handles: corners and edge midpoints, centred on the outline */
 .hero__frame i {
   position: absolute;
@@ -573,14 +630,51 @@ body, .hero, .work, .about, .contact, .footer, .phead--dark {
   rotate: -3deg;
 }
 
-/* design-tool toolbar under the selection: a picture of one, not controls */
+/* the toolbar row: a hint (and what the last tool did) on the left, Reset on the right */
+.hero__play {
+  justify-self: stretch;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 1.25rem;
+  /* clears the tools label hanging below the frame's lower-left corner */
+  margin-top: clamp(3.25rem, 7svh, 4.25rem);
+}
+.hero__hint {
+  justify-self: end;
+  overflow: hidden;
+  color: var(--graphite);
+  font-size: 0.875rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.hero__reset {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 36px;
+  padding: 0 0.75rem;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  color: var(--blue);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.2s, background-color 0.2s, opacity 0.2s;
+}
+.hero__reset svg { fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.hero__reset:hover { border-color: var(--blue); background: var(--pale); }
+/* nothing to reset yet: quiet, but it keeps its place and stays focusable */
+.hero__reset[aria-disabled='true'] { opacity: 0.5; cursor: default; }
+.hero__reset[aria-disabled='true']:hover { border-color: var(--rule); background: var(--paper); }
+
+/* design-tool toolbar under the selection, in Figma's charcoal */
 .hero__bar {
-  justify-self: center;
   display: flex;
   align-items: center;
   gap: 6px;
-  /* clears the tools label hanging below the frame's lower-left corner */
-  margin-top: clamp(3.25rem, 7svh, 4.25rem);
   padding: 5px;
   border-radius: 12px;
   background: var(--bar);
@@ -589,14 +683,67 @@ body, .hero, .work, .about, .contact, .footer, .phead--dark {
   outline-offset: -1px;
 }
 .hero__tool {
+  position: relative;
   display: grid;
   place-items: center;
   width: 42px;
   height: 40px;
+  padding: 0;
+  border: 0;
   border-radius: 8px;
+  background: transparent;
+  color: inherit;
   font-size: 20px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.15s;
 }
+.hero__tool:hover { background: rgb(255 255 255 / 0.1); }
 .hero__tool.is-on { background: var(--tool-on); color: #fff; }
+.hero__tool:focus-visible { outline: 2px solid #fff; outline-offset: -2px; box-shadow: 0 0 0 2px var(--tool-on); }
+/* a dot under a tool whose change is on the artwork */
+.hero__tool[data-changed]::before {
+  content: '';
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+  translate: -50% 0;
+}
+/* Figma-style tooltip above the tool, on hover or keyboard focus */
+.hero__tool::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  z-index: 2;
+  padding: 0.35rem 0.6rem;
+  border-radius: 6px;
+  background: var(--bar);
+  color: #fff;
+  font-size: 0.8125rem;
+  line-height: 1.2;
+  white-space: nowrap;
+  box-shadow: 0 6px 16px -8px rgb(0 0 0 / 0.5);
+  translate: -50% 4px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.15s, translate 0.15s, visibility 0s 0.15s;
+}
+[data-theme='dark'] .hero__tool::after { outline: 1px solid var(--bar-edge); }
+@media (hover: hover) {
+  .hero__tool:hover::after { opacity: 1; visibility: visible; translate: -50% 0; transition-delay: 0.3s, 0.3s, 0s; }
+}
+.hero__tool:focus-visible::after { opacity: 1; visibility: visible; translate: -50% 0; transition-delay: 0s; }
+/* touch screens at any width: 44px targets */
+@media (pointer: coarse) {
+  .hero__tool { width: 44px; height: 44px; }
+  .hero__reset { min-height: 44px; }
+}
 .hero__bar-rule { width: 1px; height: 24px; margin-inline: 8px; background: rgb(255 255 255 / 0.22); }
 
 .hero__foot {
@@ -633,7 +780,7 @@ html.has-intro { --in: 0.8s; }
   .hero__frame i:nth-of-type(7) { --k: 6; }
   .hero__frame i:nth-of-type(8) { --k: 7; }
   .hero__label { animation: fade 0.4s calc(var(--in) + 0.8s) ease-out both; }
-  .hero__bar { animation: lift-sm 0.6s calc(var(--in) + 1s) var(--ease) both; }
+  .hero__play { animation: lift-sm 0.6s calc(var(--in) + 1s) var(--ease) both; }
   .hero__hello { animation: lift-sm 0.7s calc(var(--in) + 0.1s) var(--ease) both; }
   .hero__lede { animation: lift-sm 0.7s calc(var(--in) + 0.5s) var(--ease) both; }
   .hero__cta { animation: lift-sm 0.7s calc(var(--in) + 0.6s) var(--ease) both; }
@@ -643,9 +790,20 @@ html.has-intro { --in: 0.8s; }
 /* phones: the same entrance in the column's order, the skills line before the toolbar */
 @media (max-width: 760px) and (prefers-reduced-motion: no-preference) {
   .hero__tag--skills { animation: lift-sm 0.6s calc(var(--in) + 0.75s) var(--ease) both; }
-  .hero__bar { animation-delay: calc(var(--in) + 0.9s); }
+  .hero__play { animation-delay: calc(var(--in) + 0.9s); }
 }
 @keyframes frame-in { from { opacity: 0; transform: scale(0.97); } }
+
+/* the tools' own motion: brief, and only with motion allowed */
+@media (prefers-reduced-motion: no-preference) {
+  .hero__title { transition: scale 0.35s var(--ease); }
+  .hero__frame { transition: width 0.35s var(--ease), height 0.35s var(--ease), border-color 0.2s; }
+  .hero__frame i { transition: scale 0.2s var(--ease); }
+  .hero__handles--pop i { animation: handle-in 0.3s calc(var(--k, 0) * 0.025s) var(--ease) both; }
+  .hero__title::before { transition: transform 0.35s var(--ease); }
+  .hero__pen path { animation: pen 0.55s var(--ease) both; }
+}
+@keyframes pen { from { stroke-dashoffset: 1; } }
 @keyframes handle-in { from { transform: scale(0); } }
 
 /* ---------- Opening intro (first homepage visit per tab session) ---------- */
@@ -2568,7 +2726,7 @@ main:not(:has(> .contact:last-child)) + .footer { padding-top: clamp(1.5rem, 3vw
   .hero__sel { order: 2; padding: calc(var(--h) * 0.14) calc(var(--h) * 0.16); }
   .hero__foot { order: 3; }
   .hero__tag--skills { order: 4; }
-  .hero__bar { order: 5; }
+  .hero__play { order: 5; }
 
   /* the selection: straight, with lighter handles */
   .hero__frame { rotate: none; border-width: 1px; }
@@ -2614,12 +2772,20 @@ main:not(:has(> .contact:last-child)) + .footer { padding-top: clamp(1.5rem, 3vw
   [data-theme='dark'] :is(.contact, .footer, .phead--dark) { --g-minor: rgb(255 255 255 / 0.02); }
   [data-theme='dark'] .work { --g-minor: rgb(255 255 255 / 0.014); }
   :is(.work, .contact, .footer, .phead--dark) { --g-minor: rgb(255 255 255 / 0.05); }
-  /* toolbar: pointer, frame and text only, small, centred at the foot of the hero */
-  .hero__bar { align-self: center; margin-top: 1.75rem; gap: 4px; padding: 4px; border-radius: 10px; }
-  .hero__tool { width: 34px; height: 32px; font-size: 17px; }
-  .hero__tool--rect,
-  .hero__tool--pen { display: none; }
-  .hero__bar-rule { height: 18px; margin-inline: 6px; }
+  /* toolbar centred at the foot of the hero, every tool a 44px target; the hint and Reset
+     share a line under it */
+  .hero__play {
+    align-self: center;
+    grid-template-columns: auto auto;
+    grid-template-areas: 'bar bar' 'hint reset';
+    gap: 0.75rem 1rem;
+    margin-top: 1.75rem;
+  }
+  .hero__bar { grid-area: bar; gap: 3px; padding: 4px; border-radius: 10px; }
+  .hero__hint { grid-area: hint; justify-self: start; }
+  .hero__reset { grid-area: reset; justify-self: end; min-height: 44px; }
+  .hero__tool { width: 44px; height: 44px; font-size: 18px; }
+  .hero__bar-rule { height: 20px; margin-inline: 4px; }
   .about__tools { display: block; }
 
   .hs__note { grid-column: 1 / -1; }
