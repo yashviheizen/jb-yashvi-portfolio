@@ -132,7 +132,6 @@ export default function Home() {
                   View résumé <span aria-hidden="true" className="btn__icon">↗</span>
                   <span className="sr-only"> (opens in a new tab)</span>
                 </a>
-                <img className="about__sig" src="/work/gallery/signature.webp" width={380} height={370} alt="Jb Yashvi’s signature" loading="lazy" />
               </div>
             </div>
 

@@ -12,6 +12,7 @@ import Medurun from './pages/Medurun'
 import Iica from './pages/Iica'
 import Retina from './pages/Retina'
 import Flowtech from './pages/Flowtech'
+import Compass from './pages/Compass'
 import Gallery from './pages/Gallery'
 import NotFound from './pages/NotFound'
 
@@ -197,6 +198,7 @@ export default function App() {
           <Route path="/work/iica" element={<Iica />} />
           <Route path="/work/retina" element={<Retina />} />
           <Route path="/work/flowtech" element={<Flowtech />} />
+          <Route path="/work/compass" element={<Compass />} />
           {/* the Playground page became the Ideas in motion section; old links land there */}
           <Route path="/playground" element={<Navigate to="/#ideas" replace />} />
           <Route path="/gallery" element={<Gallery />} />
