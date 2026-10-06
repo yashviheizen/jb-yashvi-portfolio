@@ -22,16 +22,17 @@
   --blue-fill: var(--blue); /* solid blue behind white text */
   --brand: #07377b; /* deep blue that stays deep blue: text on white surfaces, the intro */
   --title-1: #172238; /* the hero's "PRODUCT" */
-  --bar: var(--ink); /* the hero toolbar */
-  --bar-edge: transparent;
+  --bar: #f1f3f6; /* the hero toolbar: a quiet grey picture of one */
+  --bar-edge: #e0e5ec;
   --cell-off: #e4e9f1; /* unlit year squares */
   --about-line: #dbe4f0;
   --on-night: #fff; /* text and lines on the blue (dark: charcoal) sections */
   --on-fill: #fff; /* text on --blue-fill */
-  --tag: var(--blue-fill); /* the hero's "What I do" note */
-  --on-tag: #fff;
-  --tag-head: var(--night-text);
-  --tool-on: #1f5fc4; /* the toolbar's selected tool */
+  --tag: #f1f3f6; /* the hero's "What I do" note: neutral grey, information not a control */
+  --on-tag: var(--ink);
+  --tag-head: var(--graphite);
+  --on-bar: #6b7891; /* toolbar icons */
+  --tool-on: #dde2ea; /* the toolbar's selected tool */
 
   /* the canvas grid (see "Canvas grid"): cells, a stronger line every five, plus marks */
   --cell: 48px;
@@ -73,7 +74,8 @@
   --title-1: var(--ink);
   --bar: #1e2027;
   --bar-edge: rgb(255 255 255 / 0.1);
-  --tool-on: #638cff;
+  --tool-on: #2c2f38;
+  --on-bar: #8d93a0;
   --tag: #1e2027;
   --on-tag: #f2f3f5;
   --tag-head: #a8adb8;
@@ -82,13 +84,9 @@
 
   color-scheme: dark;
 }
-/* a lighter touch in dark: hairline selection frame, a neutral edge on the note, deeper shadows */
+/* a lighter touch in dark: hairline selection frame */
 [data-theme='dark'] .hero__frame,
 [data-theme='dark'] .hero__frame i { border-width: 1px; }
-@media (min-width: 761px) {
-  [data-theme='dark'] .hero__tag { outline: 1px solid var(--bar-edge); outline-offset: -1px; box-shadow: 0 14px 30px -16px rgb(0 0 0 / 0.7); }
-}
-[data-theme='dark'] .hero__bar { box-shadow: 0 14px 30px -16px rgb(0 0 0 / 0.8); }
 
 *,
 *::before,
@@ -355,22 +353,23 @@ body, .hero, .work, .about, .contact, .footer, .phead--dark {
 
 .nav nav { display: flex; align-items: center; gap: clamp(1.25rem, 2.4vw, 2.25rem); margin-inline: 1.5rem 0.6rem; }
 
-/* the header's one call to action: a compact solid button beside the theme switch */
+/* the header's call to action: a compact outline button beside the theme switch, secondary to
+   the hero's solid Explore my work */
 .nav__cta {
   display: inline-flex;
   align-items: center;
   min-height: 36px;
   padding: 0 0.9rem;
-  border: 1px solid var(--blue-fill);
-  background: var(--blue-fill);
-  color: var(--on-fill);
+  border: 1px solid var(--blue);
+  background: transparent;
+  color: var(--blue);
   font-size: 0.9rem;
   font-weight: 500;
   white-space: nowrap;
   text-decoration: none;
   transition: background-color 0.2s, color 0.2s, border-color 0.2s;
 }
-.nav__cta:hover { background: var(--paper); color: var(--blue); border-color: var(--blue); }
+.nav__cta:hover { background: var(--pale); }
 
 /* sun and moon theme switch: the moon in light mode, the sun in dark */
 .theme-toggle {
@@ -479,7 +478,6 @@ body, .hero, .work, .about, .contact, .footer, .phead--dark {
 
 /* Decorative pieces never take the pointer */
 .hero__frame,
-.hero__cursor,
 .hero__tag,
 .hero__bar { pointer-events: none; }
 
@@ -526,15 +524,18 @@ body, .hero, .work, .about, .contact, .footer, .phead--dark {
 }
 .hero__label .hero__icon { font-size: 0.9rem; }
 
-/* the corner labels: deep-blue notes pinned over the frame's edge, not menus */
+/* the corner labels: quiet grey notes pinned over the frame's edge, information not controls */
 .hero__tag {
   position: absolute;
   z-index: 1;
   background: var(--tag);
   color: var(--on-tag);
   white-space: nowrap;
-  box-shadow: 0 12px 28px -14px rgb(7 55 123 / 0.5);
+  outline: 1px solid var(--bar-edge);
+  outline-offset: -1px;
+  box-shadow: 0 6px 16px -12px rgb(11 31 63 / 0.25);
 }
+[data-theme='dark'] .hero__tag { box-shadow: 0 6px 16px -12px rgb(0 0 0 / 0.6); }
 .hero__tag-head { color: var(--tag-head); font-size: 0.8rem; font-weight: 500; margin-bottom: 0.4rem; }
 
 /* upper right: beside "PRODUCT" (the shorter line), straddling the top edge */
@@ -553,39 +554,20 @@ body, .hero, .work, .about, .contact, .footer, .phead--dark {
   font-size: 1rem;
   line-height: 1.65;
 }
-.hero__tag--skills li .hero__icon { font-size: 1rem; color: var(--night-text); }
+.hero__tag--skills li .hero__icon { font-size: 1rem; color: var(--tag-head); }
 
 /* lower left: below the "DESIGNER" glyphs, straddling the bottom edge */
 .hero__tag--tools {
   top: calc(100% - var(--h) * 0.06);
   right: calc(100% - var(--h) * 0.75);
   padding: 0.6rem 0.95rem;
-  border: 1px solid var(--blue);
+  border: 1px solid var(--rule);
   background: var(--paper);
-  color: var(--blue);
+  color: var(--graphite);
   font-size: 0.95rem;
+  outline: 0;
   box-shadow: none;
   rotate: -3deg;
-}
-
-/* name cursor, its tip on the lower-right handle (moved by the frame's tilt) */
-.hero__cursor {
-  position: absolute;
-  z-index: 1;
-  left: calc(100% + var(--h) * 0.022 - 1px);
-  top: calc(100% - var(--h) * 0.13 - 1px);
-  display: flex;
-  align-items: flex-start;
-}
-.hero__cursor svg { flex: none; fill: var(--blue); stroke: var(--paper); stroke-width: 1.2; overflow: visible; }
-.hero__cursor span {
-  margin: 18px 0 0 2px;
-  padding: 0.3rem 0.65rem;
-  background: var(--blue-fill);
-  color: var(--on-fill);
-  font-size: 0.875rem;
-  font-weight: 500;
-  white-space: nowrap;
 }
 
 /* design-tool toolbar under the selection: a picture of one, not controls */
@@ -599,8 +581,7 @@ body, .hero, .work, .about, .contact, .footer, .phead--dark {
   padding: 5px;
   border-radius: 12px;
   background: var(--bar);
-  color: var(--on-night);
-  box-shadow: 0 14px 30px -16px rgb(11 31 63 / 0.6);
+  color: var(--on-bar);
   outline: 1px solid var(--bar-edge);
   outline-offset: -1px;
 }
@@ -612,8 +593,8 @@ body, .hero, .work, .about, .contact, .footer, .phead--dark {
   border-radius: 8px;
   font-size: 20px;
 }
-.hero__tool.is-on { background: var(--tool-on); }
-.hero__bar-rule { width: 1px; height: 24px; margin-inline: 8px; background: rgb(255 255 255 / 0.22); }
+.hero__tool.is-on { background: var(--tool-on); color: var(--ink); }
+.hero__bar-rule { width: 1px; height: 24px; margin-inline: 8px; background: var(--rule); }
 
 .hero__foot {
   display: flex;
@@ -655,7 +636,6 @@ html.has-intro { --in: 0.8s; }
   .hero__cta { animation: lift-sm 0.7s calc(var(--in) + 0.6s) var(--ease) both; }
   .hero__tag--skills { animation: settle 0.8s calc(var(--in) + 1.1s) var(--ease) both; }
   .hero__tag--tools { animation: settle 0.8s calc(var(--in) + 1.2s) var(--ease) both; }
-  .hero__cursor { animation: cursor-in 0.9s calc(var(--in) + 1.25s) var(--ease) both; }
 }
 /* phones: the same entrance in the column's order, the skills line before the toolbar */
 @media (max-width: 760px) and (prefers-reduced-motion: no-preference) {
@@ -664,7 +644,6 @@ html.has-intro { --in: 0.8s; }
 }
 @keyframes frame-in { from { opacity: 0; transform: scale(0.97); } }
 @keyframes handle-in { from { transform: scale(0); } }
-@keyframes cursor-in { from { opacity: 0; transform: translate(48px, 36px); } }
 
 /* ---------- Opening intro (first homepage visit per tab session) ---------- */
 
@@ -1557,7 +1536,25 @@ html.has-intro { --in: 0.8s; }
 /* ---------- My journey: the résumé's roles, and the chosen one's details ---------- */
 
 .journey { padding-block: clamp(4rem, 9vw, 8rem) 0; }
-.journey__head { display: grid; gap: 0.85rem; margin-bottom: clamp(2.25rem, 4.5vw, 3.75rem); }
+
+/* connected cells like About's: heading row, roles (a third) beside the details (two thirds),
+   résumé row. --jp is every cell's inline padding, so text in the rows lines up */
+.mod--journey {
+  --jp: clamp(1.25rem, 2.6vw, 2.5rem);
+  --jtint: color-mix(in srgb, var(--pale) 70%, var(--paper));
+  grid-template-columns: minmax(17rem, 1fr) minmax(0, 2fr);
+}
+.mod--journey > .mod__cell { padding: 0; }
+
+/* the heading over the roles column, the note over the details column, both on the same line */
+.journey__head {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+  align-items: end;
+  row-gap: 0.85rem;
+}
+.mod--journey > .journey__head { padding: clamp(1.75rem, 4vw, 3.25rem) var(--jp) clamp(1.5rem, 3vw, 2.5rem); }
 /* sized to follow the About introduction above it */
 .journey__title {
   font-size: clamp(2.125rem, 3.7vw, 3.375rem);
@@ -1565,22 +1562,22 @@ html.has-intro { --in: 0.8s; }
   line-height: 1.05;
   letter-spacing: -0.02em;
 }
-.journey__note { max-width: 46ch; color: var(--graphite); font-size: clamp(1.0625rem, 1.25vw, 1.1875rem); line-height: 1.5; }
-
-.jmap {
-  display: grid;
-  grid-template-columns: minmax(17rem, 1fr) minmax(0, 2fr);
-  gap: 2.5rem clamp(2.5rem, 5.5vw, 6rem);
-  align-items: start;
+.journey__note {
+  max-width: 46ch;
+  padding-left: var(--jp);
+  color: var(--graphite);
+  font-size: clamp(1.0625rem, 1.25vw, 1.1875rem);
+  line-height: 1.5;
 }
 
 /* the roles: every company, role and date always visible; a blue mark slides to the chosen one */
-.jlist { position: relative; display: grid; border-left: 1px solid var(--line); }
+.jlist { position: relative; display: grid; align-content: start; }
 .jlist__mark {
   position: absolute;
   top: 0;
-  left: -1px;
-  width: 2px;
+  left: 0;
+  z-index: 1;
+  width: 3px;
   height: 0;
   background: var(--blue);
   pointer-events: none;
@@ -1588,7 +1585,7 @@ html.has-intro { --in: 0.8s; }
 .jrole {
   display: grid;
   gap: 0.2rem;
-  padding: 1rem 0.5rem 1rem 1.35rem;
+  padding: 1.1rem var(--jp);
   border: 0;
   border-bottom: 1px solid var(--line);
   background: none;
@@ -1596,16 +1593,26 @@ html.has-intro { --in: 0.8s; }
   font: inherit;
   text-align: left;
   cursor: pointer;
+  transition: background-color 0.2s ease;
 }
-.jrole:first-of-type { border-top: 1px solid var(--line); }
 .jrole__company { font-size: clamp(1.0625rem, 1.35vw, 1.25rem); line-height: 1.3; letter-spacing: -0.005em; transition: color 0.2s ease; }
 .jrole__meta { display: flex; flex-wrap: wrap; gap: 0 0.75rem; color: var(--graphite); font-size: 0.9rem; }
 .jrole__dates { font-variant-numeric: tabular-nums; }
+/* the chosen role shares the details panel's tint, so the two read as one */
+.jrole[aria-selected='true'] { background: var(--jtint); }
 .jrole[aria-selected='true'] .jrole__company { color: var(--blue); font-weight: 500; }
-.jrole:is(:hover, :focus-visible) .jrole__company { color: var(--blue); }
+.jrole:focus-visible .jrole__company { color: var(--blue); }
+@media (hover: hover) { .jrole:hover .jrole__company { color: var(--blue); } }
 .jrole:focus-visible { outline-offset: -2px; }
 
-/* the chosen role: every panel in one cell, so the details keep the tallest one's height */
+/* the chosen role's details, on a lightly tinted panel; the year strip sits at its foot */
+.mod--journey > .jside {
+  display: grid;
+  align-content: space-between;
+  padding: clamp(1.75rem, 3.5vw, 3rem) var(--jp);
+  background: var(--jtint);
+}
+/* every panel in one cell, so the details keep the tallest one's height */
 .jdetails { display: grid; }
 .jdetail {
   grid-area: 1 / 1;
@@ -1620,7 +1627,7 @@ html.has-intro { --in: 0.8s; }
   margin-bottom: 1rem;
   padding: 0.15rem 0.55rem;
   border: 1px solid var(--rule);
-  background: var(--pale);
+  background: var(--paper);
   color: var(--blue);
   font-size: 0.8rem;
   font-weight: 500;
@@ -1649,7 +1656,7 @@ html.has-intro { --in: 0.8s; }
   gap: 0.9rem 1rem;
   margin-top: clamp(1.5rem, 3vw, 2rem);
   padding-top: 1.1rem;
-  border-top: 1px solid var(--line);
+  border-top: 1px solid var(--rule);
 }
 .jstrip__year { display: grid; gap: 0.4rem; }
 .jstrip__label { color: var(--graphite); font-size: 0.75rem; font-variant-numeric: tabular-nums; transition: color 0.3s ease; }
@@ -1658,7 +1665,23 @@ html.has-intro { --in: 0.8s; }
 .jstrip__cell { width: 12px; height: 12px; border-radius: 2px; background: var(--cell-off); }
 .jstrip__year.is-on .jstrip__cell { background: var(--blue); }
 
-.journey__end { margin-top: clamp(2rem, 4vw, 3rem); }
+/* the full résumé: a compact link row across the foot of the grid */
+.mod--journey > .journey__end {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 3.25rem;
+  padding: 0.75rem var(--jp);
+  color: var(--blue);
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+.journey__end:hover { background: var(--jtint); }
+.journey__end:focus-visible { outline-offset: -2px; }
+.journey__arrow { display: inline-block; transition: transform 0.25s var(--ease); }
+.journey__end:hover .journey__arrow { transform: translate(2px, -2px); }
 
 @media (prefers-reduced-motion: no-preference) and (max-width: 760px) {
   .nav__menu-icon, .nav__menu-icon::before { transition: translate 0.2s ease, rotate 0.25s var(--ease), top 0.2s ease; }
@@ -1675,8 +1698,21 @@ html.has-intro { --in: 0.8s; }
 }
 
 @media (max-width: 760px) {
-  .jmap { grid-template-columns: minmax(0, 1fr); }
-  .jrole { padding-block: 0.8rem; }
+  /* stacked: heading, roles, details, résumé */
+  .mod--journey { grid-template-columns: minmax(0, 1fr); }
+  .journey__head { grid-template-columns: minmax(0, 1fr); }
+  .journey__note { padding-left: 0; }
+
+  /* the roles as a compact two-column grid of company and dates (the role is in the details) */
+  .jlist { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: var(--line); }
+  .jlist__mark { display: none; }
+  .jrole { align-content: start; padding: 0.75rem var(--jp); border: 0; background: var(--paper); }
+  .jrole:last-of-type:nth-of-type(odd) { grid-column: 1 / -1; }
+  .jrole__meta > :first-child { display: none; }
+  .jrole__company { font-size: 1.0625rem; }
+  .jrole__meta { font-size: 0.85rem; }
+  .jrole[aria-selected='true'] { box-shadow: inset 3px 0 var(--blue); }
+
   /* the details fit the chosen role; the one fading out leaves the flow at once */
   .jdetails { position: relative; }
   .jdetail:not(.is-on) { position: absolute; inset: 0 0 auto; }
@@ -2555,6 +2591,7 @@ main:not(:has(> .contact:last-child)) + .footer { padding-top: clamp(1.5rem, 3vw
     padding: 0;
     background: none;
     box-shadow: none;
+    outline: 0;
     color: var(--graphite);
     white-space: normal;
     rotate: none;
@@ -2571,8 +2608,7 @@ main:not(:has(> .contact:last-child)) + .footer { padding-top: clamp(1.5rem, 3vw
   .hero__tag--skills li { gap: 0; font-size: 0.875rem; line-height: 1.5; }
   .hero__tag--skills li + li::before { content: "·"; margin-inline: 0.45em; }
   .hero__tag--skills li .hero__icon { display: none; }
-  .hero__tag--tools,
-  .hero__cursor { display: none; }
+  .hero__tag--tools { display: none; }
   /* the canvas grid, simplified: larger plain cells, no major lines or plus marks */
   :root { --cell: 56px; }
   :is(body, .hero, .work, .about, .contact, .footer, .phead--dark) { --g-major: transparent; --g-plus: none; }
@@ -2584,7 +2620,7 @@ main:not(:has(> .contact:last-child)) + .footer { padding-top: clamp(1.5rem, 3vw
   [data-theme='dark'] .work { --g-minor: rgb(255 255 255 / 0.014); }
   :is(.work, .contact, .footer, .phead--dark) { --g-minor: rgb(255 255 255 / 0.05); }
   /* toolbar: pointer, frame and text only, small, centred at the foot of the hero */
-  .hero__bar { align-self: center; margin-top: 1.75rem; gap: 4px; padding: 4px; border-radius: 10px; box-shadow: 0 10px 22px -14px rgb(11 31 63 / 0.55); }
+  .hero__bar { align-self: center; margin-top: 1.75rem; gap: 4px; padding: 4px; border-radius: 10px; }
   .hero__tool { width: 34px; height: 32px; font-size: 17px; }
   .hero__tool--rect,
   .hero__tool--pen { display: none; }

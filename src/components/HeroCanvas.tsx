@@ -42,10 +42,10 @@ const TOOLS: IconName[] = ['pointer', 'frame', 'rect', 'pen', 'text']
 /**
  * The hero as a design canvas: a small introduction, then the headline inside a tilted
  * selection frame with eight handles and a component label, two small labels hanging off its
- * corners, a name cursor at its lower-right handle, and a design-tool toolbar beneath it.
- * The frame, labels, cursor and toolbar are decoration (no controls, no pointer events, no
- * keyboard stops); the only interactive element is the CTA. They appear once, in sequence,
- * and then stay still.
+ * corners, and a design-tool toolbar beneath it. The frame, labels and toolbar are decoration
+ * (plain text and pictures: no controls, no pointer events, no keyboard stops) and are styled
+ * in neutral greys so they never read as buttons; the only blue fill, and the only interactive
+ * element, is the CTA. They appear once, in sequence, and then stay still.
  */
 export default function HeroCanvas() {
   return (
@@ -82,12 +82,6 @@ export default function HeroCanvas() {
               </ul>
             </div>
             <p className="hero__tag hero__tag--tools"><span className="sr-only">Tools: </span>Figma · Claude · Codex</p>
-            <div className="hero__cursor" aria-hidden="true">
-              <svg viewBox="0 0 16 20" width="18" height="22">
-                <path d="M1 1v15.5l4.2-4 2.9 6.6 2.6-1.2-2.9-6.4H14z" />
-              </svg>
-              <span>Jb Yashvi</span>
-            </div>
           </div>
           <div className="hero__bar" aria-hidden="true">
             {TOOLS.map((t) => (

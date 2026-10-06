@@ -23,14 +23,18 @@ const dates = (r: (typeof roles)[number]) => `${r.from} – ${r.to}`
 const PER_YEAR = 4
 
 /**
- * My journey: every role from the résumé in a list (company, role and dates always shown), and
- * the chosen role's details beside it (below it on phones). Under the details, a strip of small squares grouped by
- * year lights up the years that role covers. The dates in text are the information; the strip
- * only echoes them, by whole years, so it never implies a month.
+ * My journey, in connected grid cells like About: the heading and note across the top; every
+ * role from the résumé in a third-width column (company, role and dates always shown) beside a
+ * tinted panel with the chosen role's details; the full résumé link along the bottom. On phones
+ * the cells stack, and the roles become a compact two-column grid of company and dates.
  *
- * The list is a tab list: click or tap a role, or use the arrow keys, Home and End. A blue mark
- * slides to the chosen role. On wider screens the details share one cell, so the year strip
- * stays put while it recolours; on phones the details fit the chosen role, below the list.
+ * Under the details, a strip of small squares grouped by year lights up the years that role
+ * covers. The dates in text are the information; the strip only echoes them, by whole years,
+ * so it never implies a month.
+ *
+ * The roles are a tab list: click or tap one, or use the arrow keys, Home and End. On wider
+ * screens a blue mark slides to the chosen role, and the details share one cell, so the year
+ * strip stays put while it recolours; on phones the details fit the chosen role.
  */
 export default function Journey() {
   const [sel, setSel] = useState(0)
@@ -60,7 +64,7 @@ export default function Journey() {
   }
 
   const onKey = (e: KeyboardEvent) => {
-    const to = { ArrowDown: sel + 1, ArrowUp: sel - 1, Home: 0, End: roles.length - 1 }[e.key]
+    const to = { ArrowDown: sel + 1, ArrowRight: sel + 1, ArrowUp: sel - 1, ArrowLeft: sel - 1, Home: 0, End: roles.length - 1 }[e.key]
     if (to === undefined) return
     e.preventDefault()
     select(to, true)
@@ -69,13 +73,13 @@ export default function Journey() {
   return (
     <section id="journey" className="journey" aria-labelledby="journey-title" tabIndex={-1}>
       <div className="wrap">
-        <div className="journey__head" data-reveal>
-          <h2 id="journey-title" className="journey__title">My journey</h2>
-          <p className="journey__note">The roles and projects that have shaped how I design.</p>
-        </div>
+        <div className="mod mod--journey" data-reveal>
+          <div className="mod__cell journey__head">
+            <h2 id="journey-title" className="journey__title">My journey</h2>
+            <p className="journey__note">The roles and projects that have shaped how I design.</p>
+          </div>
 
-        <div className="jmap" data-reveal>
-          <div className="jlist" ref={list} role="tablist" aria-label="Roles" aria-orientation="vertical" onKeyDown={onKey}>
+          <div className="mod__cell jlist" ref={list} role="tablist" aria-label="Roles" onKeyDown={onKey}>
             <span className="jlist__mark" ref={mark} aria-hidden="true" />
             {roles.map((r, i) => (
               <button
@@ -101,7 +105,7 @@ export default function Journey() {
             ))}
           </div>
 
-          <div className="jside">
+          <div className="mod__cell jside">
             <div className="jdetails">
               {roles.map((r, i) => {
                 const on = i === sel
@@ -149,11 +153,9 @@ export default function Journey() {
               })}
             </div>
           </div>
-        </div>
 
-        <div className="journey__end">
-          <a className="btn btn--ghost" href={contact.resume} target="_blank" rel="noreferrer">
-            View full résumé <span aria-hidden="true" className="btn__icon">↗</span>
+          <a className="mod__cell journey__end" href={contact.resume} target="_blank" rel="noreferrer">
+            View full résumé <span aria-hidden="true" className="journey__arrow">↗</span>
             <span className="sr-only"> (PDF, opens in a new tab)</span>
           </a>
         </div>
