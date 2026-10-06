@@ -1,22 +1,12 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 type Theme = 'light' | 'dark'
 
 const KEY = 'jb-theme'
-const SYSTEM = '(prefers-color-scheme: dark)'
-const META = { light: '#ffffff', dark: '#071530' }
+const META = { light: '#ffffff', dark: '#111216' }
 
 /** the theme index.html set before first paint */
 const current = (): Theme => (document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light')
-
-function saved(): Theme | null {
-  try {
-    const t = localStorage.getItem(KEY)
-    return t === 'light' || t === 'dark' ? t : null
-  } catch {
-    return null
-  }
-}
 
 function apply(t: Theme) {
   document.documentElement.dataset.theme = t
@@ -24,25 +14,11 @@ function apply(t: Theme) {
 }
 
 /**
- * Sun and moon switch in the header. The page starts in the visitor's system theme and follows
- * it until they choose one here; from then on their choice is remembered on this device.
+ * Sun and moon switch in the header. The page starts light for every visitor, whatever their
+ * system theme; dark only when they choose it here, and that choice is remembered on this device.
  */
 export default function ThemeToggle() {
   const [theme, setTheme] = useState<Theme>(current)
-
-  // follow the system theme while the visitor hasn't chosen one
-  useEffect(() => {
-    const mq = window.matchMedia?.(SYSTEM)
-    if (!mq) return
-    const onChange = () => {
-      if (saved()) return
-      const t = mq.matches ? 'dark' : 'light'
-      apply(t)
-      setTheme(t)
-    }
-    mq.addEventListener('change', onChange)
-    return () => mq.removeEventListener('change', onChange)
-  }, [])
 
   const toggle = () => {
     const t = theme === 'dark' ? 'light' : 'dark'

@@ -6,22 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Jb Yashvi is a product designer who designs thoughtful digital products and brings ideas to life with AI." />
     <meta name="theme-color" content="#ffffff" />
-    <!-- Theme: the visitor's saved choice, else their system setting. Set before first paint
-         (so before the stylesheets) to avoid a flash of the wrong theme. -->
+    <!-- Theme: light unless the visitor chose dark with the toggle (saved on this device). Set
+         before first paint (so before the stylesheets) to avoid a flash of the wrong theme. -->
     <script>
       (function () {
         var t
         try { t = localStorage.getItem('jb-theme') } catch (e) {}
-        if (t !== 'light' && t !== 'dark') t = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        if (t !== 'dark') t = 'light'
         document.documentElement.dataset.theme = t
-        document.querySelector('meta[name="theme-color"]').content = t === 'dark' ? '#071530' : '#ffffff'
+        document.querySelector('meta[name="theme-color"]').content = t === 'dark' ? '#111216' : '#ffffff'
       })()
     </script>
     <!-- Branded intro: only on the first homepage load in this tab session, never with a
          #hash, on another page, after a reload or with reduced motion. Decided before first
          paint (so it sits before the stylesheets); if the app never mounts, the failsafe
          ends the intro state. -->
-    <style>html.has-intro:not(.intro-done) { background: #07377b; }</style>
+    <style>html.has-intro:not(.intro-done) { background: #07377b; } html[data-theme="dark"].has-intro:not(.intro-done) { background: #111216; }</style>
     <script>
       (function () {
         try {
