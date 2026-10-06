@@ -872,6 +872,23 @@ html.has-intro { --in: 0.8s; }
   animation: intro-name-out 0.28s 0.04s cubic-bezier(0.7, 0, 0.6, 1) forwards;
 }
 @keyframes ptx-cover { from { transform: translateY(100%); } }
+/* project names can be long: a centred block inside the side gutters that wraps rather than
+   clips. Both lines sit in one animated span, so they rise and leave together. */
+.ptx__name {
+  width: min(100% - 2 * var(--gutter), 72rem);
+  font-size: clamp(2.25rem, 8vw, 7rem);
+  text-align: center;
+  white-space: normal;
+  overflow-wrap: break-word;
+  text-wrap: balance;
+}
+.ptx__sub {
+  display: block;
+  margin-top: 0.35em;
+  font-size: clamp(1.15rem, 0.4em, 2.75rem);
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
 
 /* Project page entrance: plays on every project page load. After a transition the page
    mounts under the panel, so these run as the panel lifts. */

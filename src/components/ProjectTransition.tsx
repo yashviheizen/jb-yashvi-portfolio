@@ -87,12 +87,19 @@ export default function ProjectTransition() {
   useEffect(() => () => timers.current.forEach(clearTimeout), [])
 
   if (phase === 'idle') return null
+  // a long name like “Compass Group — CMP Autobot” shows as a title with a smaller subtitle
+  const [title, subtitle] = name.split(' — ')
   return (
     <div className={`ptx ptx--${phase}`} aria-hidden="true">
       {Array.from({ length: COLS }, (_, i) => (
         <span key={i} className="ptx__col" style={{ '--i': i } as CSSProperties} />
       ))}
-      <p className="ptx__name"><span>{name}</span></p>
+      <p className="ptx__name">
+        <span>
+          {title}
+          {subtitle && <span className="ptx__sub">{subtitle}</span>}
+        </span>
+      </p>
     </div>
   )
 }
