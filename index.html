@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Jb Yashvi is a product designer who designs thoughtful digital products and brings ideas to life with AI." />
+    <meta name="theme-color" content="#ffffff" />
+    <!-- Branded intro: only on the first homepage load in this tab session, never with a
+         #hash, on another page, after a reload or with reduced motion. Decided before first
+         paint (so it sits before the stylesheets); if the app never mounts, the failsafe
+         ends the intro state. -->
+    <style>html.has-intro:not(.intro-done) { background: #07377b; }</style>
+    <script>
+      (function () {
+        try {
+          var seen = sessionStorage.getItem('jb-intro')
+          sessionStorage.setItem('jb-intro', '1')
+          if (seen || location.pathname !== '/' || location.hash) return
+          if (!window.matchMedia || matchMedia('(prefers-reduced-motion: reduce)').matches) return
+          var root = document.documentElement
+          root.classList.add('has-intro')
+          window.__introFailsafe = setTimeout(function () { root.classList.add('intro-done') }, 2500)
+        } catch (e) {}
+      })()
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500&display=swap" rel="stylesheet" />
+    <title>Jb Yashvi, Product Designer</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
