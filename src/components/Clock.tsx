@@ -11,9 +11,9 @@ const fmt = new Intl.DateTimeFormat('en-US', {
 const now = () => fmt.format(new Date())
 
 /**
- * Jb's local time in India, e.g. "10:42:08 AM · IST", ticking on each second. Two-digit hours
- * and tabular figures keep its width fixed, so the header never shifts. Screen readers get it
- * once with a label, not every second.
+ * Jb's local time in India, e.g. "10:42:08 AM IST", ticking on each second, under a visible
+ * label. Two-digit hours and tabular figures keep its width fixed, so nothing beside it shifts.
+ * It isn't a live region, so screen readers read it when they reach it, not every second.
  */
 export default function Clock() {
   const [time, setTime] = useState(now)
@@ -30,10 +30,11 @@ export default function Clock() {
   }, [])
 
   return (
-    <p className="nav__clock">
-      <span className="sr-only">Local time in India: </span>
-      <span className="nav__time">{time}</span>
-      <span aria-hidden="true"> · </span>IST
+    <p className="clock">
+      <span className="clock__label">Local time in India</span>
+      <span className="clock__time">
+        {time} <abbr title="India Standard Time">IST</abbr>
+      </span>
     </p>
   )
 }

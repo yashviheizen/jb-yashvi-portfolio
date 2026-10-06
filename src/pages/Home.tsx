@@ -164,9 +164,17 @@ export default function Home() {
           <div className="cgrid">
             <div className="cgrid__main">
               <h2 id="contact-title" className="contact__title">Let’s make something useful.</h2>
-              <div className="contact__mail">
-                <a className="contact__email" href={`mailto:${contact.email}`}>{contact.email}</a>
-                <CopyEmail />
+              <div className="contact__actions">
+                <p className="contact__lead">Have a project in mind? Let’s talk.</p>
+                <a className="btn btn--light contact__book" href={contact.calendly} target="_blank" rel="noreferrer">
+                  Book a call <span aria-hidden="true" className="btn__icon">↗</span>
+                  <span className="sr-only"> (Calendly, opens in a new tab)</span>
+                </a>
+                <div className="contact__mail">
+                  <span className="contact__or">Or email</span>
+                  <a className="contact__email" href={`mailto:${contact.email}`}>{contact.email}</a>
+                  <CopyEmail />
+                </div>
               </div>
             </div>
             <ul className="cgrid__links">

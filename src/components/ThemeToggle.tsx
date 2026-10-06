@@ -47,6 +47,8 @@ export default function ThemeToggle() {
         </g>
         <path className="theme-toggle__moon" d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" />
       </svg>
+      {/* shown only in the phone menu, where the switch is a full row */}
+      <span className="theme-toggle__label" aria-hidden="true">Dark theme</span>
     </button>
   )
 }

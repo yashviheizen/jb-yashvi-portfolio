@@ -50,8 +50,8 @@
 
 /* Dark theme: charcoal surfaces, soft white text, neutral grey secondary text and lines, and
    one clear blue kept for the accents (DESIGNER, buttons, selection handles, active states).
-   Set on <html> before first paint by the script in index.html (the visitor's choice, else
-   their system theme). Sections that are blue in light mode become raised charcoal. */
+   Set on <html> before first paint by the script in index.html, only when the visitor has
+   chosen it with the toggle; everyone else gets light. Sections that are blue in light mode become raised charcoal. */
 :root[data-theme='dark'] {
   --paper: #111216;
   --pale: #191b22; /* alternate sections and raised surfaces */
@@ -233,19 +233,26 @@ body, .hero, .work, .about, .contact, .footer, .phead--dark {
 }
 /* dark theme: the paper sections' grid in faint white, a touch stronger in the hero */
 [data-theme='dark'] :is(body, .about) {
-  --g-minor: rgb(255 255 255 / 0.035);
-  --g-major: rgb(255 255 255 / 0.055);
+  --g-minor: rgb(255 255 255 / 0.028);
+  --g-major: rgb(255 255 255 / 0.045);
   --g-plus: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cpath d='M120 114.5v11M114.5 120h11' stroke='%23fff' stroke-opacity='.16' stroke-width='1.25'/%3E%3C/svg%3E");
 }
 [data-theme='dark'] .hero {
-  --g-minor: rgb(255 255 255 / 0.05);
-  --g-major: rgb(255 255 255 / 0.075);
+  --g-minor: rgb(255 255 255 / 0.042);
+  --g-major: rgb(255 255 255 / 0.064);
   --g-plus: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cpath d='M120 114.5v11M114.5 120h11' stroke='%23fff' stroke-opacity='.22' stroke-width='1.25'/%3E%3C/svg%3E");
 }
 [data-theme='dark'] :is(.work, .contact, .footer, .phead--dark) {
-  --g-minor: rgb(255 255 255 / 0.03);
-  --g-major: rgb(255 255 255 / 0.05);
-  --g-plus: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cpath d='M120 114.5v11M114.5 120h11' stroke='%23fff' stroke-opacity='.14' stroke-width='1.25'/%3E%3C/svg%3E");
+  --g-minor: rgb(255 255 255 / 0.025);
+  --g-major: rgb(255 255 255 / 0.04);
+  --g-plus: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cpath d='M120 114.5v11M114.5 120h11' stroke='%23fff' stroke-opacity='.12' stroke-width='1.25'/%3E%3C/svg%3E");
+}
+/* Selected Work: the faintest grid, so the projects lead */
+[data-theme='dark'] .work {
+  --grid-line: rgb(255 255 255 / 0.045);
+  --g-minor: rgb(255 255 255 / 0.016);
+  --g-major: rgb(255 255 255 / 0.026);
+  --g-plus: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cpath d='M120 114.5v11M114.5 120h11' stroke='%23fff' stroke-opacity='.08' stroke-width='1.25'/%3E%3C/svg%3E");
 }
 /* Contact runs into the footer: it ends its grid on that edge where the footer starts its own */
 .contact { --gy: 100%; }
@@ -322,46 +329,48 @@ body, .hero, .work, .about, .contact, .footer, .phead--dark {
   z-index: 50;
   background: color-mix(in srgb, var(--paper) 97%, transparent);
   backdrop-filter: saturate(1.2) blur(6px);
-  border-bottom: 1px solid var(--rule);
+  border-bottom: 1px solid color-mix(in srgb, var(--rule) 70%, transparent);
 }
 
 .nav__inner {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr) auto;
-  column-gap: var(--col-gap);
-  align-items: center;
-  min-height: 56px;
-}
-
-.nav__name {
-  grid-column: 1 / 4;
-  color: var(--blue);
-  font-size: 1.05rem;
-  font-weight: 500;
-  text-decoration: none;
-  letter-spacing: -0.01em;
-}
-
-.nav__mid {
-  grid-column: 4 / 8;
   display: flex;
   align-items: center;
-  gap: 1.25rem;
-  min-width: 0;
+  min-height: 60px;
 }
-.nav__role { color: var(--graphite); font-size: 0.9rem; white-space: nowrap; }
 
-/* Jb's local time: tabular figures and two-digit hours, so its width never changes */
-.nav__clock {
-  margin: 0;
-  color: var(--graphite);
-  font-size: 0.85rem;
-  font-variant-numeric: tabular-nums;
+/* name and role, one lockup on the left; everything else sits to the right */
+.nav__brand {
+  display: grid;
+  gap: 0.1rem;
+  margin-right: auto;
+  padding-block: 0.5rem;
+  text-decoration: none;
+  line-height: 1.2;
+}
+.nav__name { color: var(--blue); font-size: 1.05rem; font-weight: 500; letter-spacing: -0.01em; white-space: nowrap; }
+.nav__role { color: var(--graphite); font-size: 0.8rem; white-space: nowrap; }
+
+/* the phone menu's button and scrim; hidden while the links fit in the bar */
+.nav__menu-btn, .nav__scrim, .theme-toggle__label { display: none; }
+
+.nav nav { display: flex; align-items: center; gap: clamp(1.25rem, 2.4vw, 2.25rem); margin-inline: 1.5rem 0.6rem; }
+
+/* the header's one call to action: a compact solid button beside the theme switch */
+.nav__cta {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 0.9rem;
+  border: 1px solid var(--blue-fill);
+  background: var(--blue-fill);
+  color: var(--on-fill);
+  font-size: 0.9rem;
+  font-weight: 500;
   white-space: nowrap;
+  text-decoration: none;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
 }
-.nav__role + .nav__clock { padding-left: 1.25rem; border-left: 1px solid var(--rule); }
-
-.nav nav { grid-column: 8 / 13; justify-self: end; }
+.nav__cta:hover { background: var(--paper); color: var(--blue); border-color: var(--blue); }
 
 /* sun and moon theme switch: the moon in light mode, the sun in dark */
 .theme-toggle {
@@ -395,6 +404,10 @@ body, .hero, .work, .about, .contact, .footer, .phead--dark {
   transition: background-size 0.3s var(--ease);
 }
 .nav__links a:hover { background-size: 100% 1px; }
+/* dark theme: neutral links, blue only for where the visitor is and the link they point at */
+[data-theme='dark'] .nav__links { color: var(--graphite); }
+[data-theme='dark'] .nav__links a { transition: background-size 0.3s var(--ease), color 0.2s ease; }
+[data-theme='dark'] .nav__links :is(a[aria-current], a:hover, a:focus-visible) { color: var(--blue); }
 
 /* ---------- Hero: the headline on a design canvas ---------- */
 
@@ -1544,19 +1557,20 @@ html.has-intro { --in: 0.8s; }
 /* ---------- My journey: the résumé's roles, and the chosen one's details ---------- */
 
 .journey { padding-block: clamp(4rem, 9vw, 8rem) 0; }
-.journey__head { display: grid; gap: 0.6rem; margin-bottom: clamp(2rem, 4vw, 3rem); }
+.journey__head { display: grid; gap: 0.85rem; margin-bottom: clamp(2.25rem, 4.5vw, 3.75rem); }
+/* sized to follow the About introduction above it */
 .journey__title {
-  font-size: clamp(1.5rem, 2.4vw, 2.125rem);
+  font-size: clamp(2.125rem, 3.7vw, 3.375rem);
   font-weight: 400;
-  line-height: 1.1;
-  letter-spacing: -0.01em;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
 }
-.journey__note { max-width: 46ch; color: var(--graphite); }
+.journey__note { max-width: 46ch; color: var(--graphite); font-size: clamp(1.0625rem, 1.25vw, 1.1875rem); line-height: 1.5; }
 
 .jmap {
   display: grid;
-  grid-template-columns: minmax(15rem, 1fr) minmax(0, 2fr);
-  gap: 2rem clamp(2rem, 5vw, 5rem);
+  grid-template-columns: minmax(17rem, 1fr) minmax(0, 2fr);
+  gap: 2.5rem clamp(2.5rem, 5.5vw, 6rem);
   align-items: start;
 }
 
@@ -1573,8 +1587,8 @@ html.has-intro { --in: 0.8s; }
 }
 .jrole {
   display: grid;
-  gap: 0.1rem;
-  padding: 0.8rem 0.5rem 0.8rem 1.25rem;
+  gap: 0.2rem;
+  padding: 1rem 0.5rem 1rem 1.35rem;
   border: 0;
   border-bottom: 1px solid var(--line);
   background: none;
@@ -1584,8 +1598,8 @@ html.has-intro { --in: 0.8s; }
   cursor: pointer;
 }
 .jrole:first-of-type { border-top: 1px solid var(--line); }
-.jrole__company { font-size: 1.0625rem; line-height: 1.3; transition: color 0.2s ease; }
-.jrole__meta { display: flex; flex-wrap: wrap; gap: 0 0.75rem; color: var(--graphite); font-size: 0.875rem; }
+.jrole__company { font-size: clamp(1.0625rem, 1.35vw, 1.25rem); line-height: 1.3; letter-spacing: -0.005em; transition: color 0.2s ease; }
+.jrole__meta { display: flex; flex-wrap: wrap; gap: 0 0.75rem; color: var(--graphite); font-size: 0.9rem; }
 .jrole__dates { font-variant-numeric: tabular-nums; }
 .jrole[aria-selected='true'] .jrole__company { color: var(--blue); font-weight: 500; }
 .jrole:is(:hover, :focus-visible) .jrole__company { color: var(--blue); }
@@ -1603,7 +1617,7 @@ html.has-intro { --in: 0.8s; }
 }
 .jdetail.is-on { visibility: visible; opacity: 1; }
 .jdetail__now {
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
   padding: 0.15rem 0.55rem;
   border: 1px solid var(--rule);
   background: var(--pale);
@@ -1611,12 +1625,12 @@ html.has-intro { --in: 0.8s; }
   font-size: 0.8rem;
   font-weight: 500;
 }
-.jdetail__company { font-size: clamp(1.5rem, 2.4vw, 2rem); font-weight: 400; line-height: 1.1; letter-spacing: -0.015em; }
-.jdetail__meta { display: flex; flex-wrap: wrap; gap: 0 1rem; margin-top: 0.45rem; }
+.jdetail__company { font-size: clamp(1.75rem, 2.7vw, 2.5rem); font-weight: 400; line-height: 1.08; letter-spacing: -0.02em; }
+.jdetail__meta { display: flex; flex-wrap: wrap; gap: 0 1rem; margin-top: 0.6rem; font-size: clamp(1rem, 1.2vw, 1.125rem); }
 .jdetail__dates { color: var(--graphite); font-variant-numeric: tabular-nums; }
-.jdetail__summary { max-width: 60ch; margin-top: 1.1rem; }
-.jdetail__points { display: grid; gap: 0.5rem; max-width: 60ch; margin-top: 0.85rem; }
-.jdetail__points li { position: relative; padding-left: 1.1rem; color: var(--graphite); font-size: 0.9375rem; }
+.jdetail__summary { max-width: 46ch; margin-top: 1.5rem; font-size: clamp(1.0625rem, 1.45vw, 1.3125rem); line-height: 1.55; }
+.jdetail__points { display: grid; gap: 0.8rem; max-width: 58ch; margin-top: 1.4rem; }
+.jdetail__points li { position: relative; padding-left: 1.25rem; color: var(--graphite); font-size: clamp(1rem, 1.2vw, 1.125rem); line-height: 1.6; }
 .jdetail__points li::before {
   content: '';
   position: absolute;
@@ -1646,6 +1660,12 @@ html.has-intro { --in: 0.8s; }
 
 .journey__end { margin-top: clamp(2rem, 4vw, 3rem); }
 
+@media (prefers-reduced-motion: no-preference) and (max-width: 760px) {
+  .nav__menu-icon, .nav__menu-icon::before { transition: translate 0.2s ease, rotate 0.25s var(--ease), top 0.2s ease; }
+  .nav nav { translate: 0 -6px; transition: opacity 0.18s ease, translate 0.25s var(--ease), visibility 0s 0.25s; }
+  .nav[data-open] nav { translate: none; transition: opacity 0.18s ease, translate 0.25s var(--ease); }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .jlist__mark { transition: transform 0.3s var(--ease), height 0.3s var(--ease); }
   /* the old details fade out quickly; the new ones fade in and rise 6px over 300ms */
@@ -1656,8 +1676,7 @@ html.has-intro { --in: 0.8s; }
 
 @media (max-width: 760px) {
   .jmap { grid-template-columns: minmax(0, 1fr); }
-  .jrole { padding-block: 0.7rem; }
-  .jrole__company { font-size: 1rem; }
+  .jrole { padding-block: 0.8rem; }
   /* the details fit the chosen role; the one fading out leaves the flow at once */
   .jdetails { position: relative; }
   .jdetail:not(.is-on) { position: absolute; inset: 0 0 auto; }
@@ -1861,11 +1880,16 @@ html.has-intro { --in: 0.8s; }
   line-height: 1;
   letter-spacing: -0.025em;
 }
+/* booking a call first; email as the second way to get in touch */
+.contact__actions { display: grid; justify-items: start; gap: 1.25rem; }
+.contact__lead { color: var(--on-night); font-size: clamp(1.125rem, 1.6vw, 1.375rem); line-height: 1.4; }
+.contact__book { margin-bottom: 0.5rem; }
 .contact__mail { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.25rem; }
+.contact__or { flex-basis: 100%; color: var(--night-text); font-size: 0.9rem; }
 .contact__email {
   min-width: 0;
   color: var(--on-night);
-  font-size: clamp(1.2rem, 2.2vw, 1.75rem);
+  font-size: clamp(1.125rem, 1.8vw, 1.5rem);
   line-height: 1.25;
   overflow-wrap: anywhere;
   text-decoration: underline;
@@ -1943,8 +1967,21 @@ html.has-intro { --in: 0.8s; }
   color: var(--night-text);
   font-size: 0.9rem;
 }
-.footer__row > p { padding: 1rem clamp(1rem, 1.8vw, 1.5rem); background: var(--night); }
-.footer__row > .footer__name { padding-inline: clamp(1.5rem, 3.5vw, 3rem); color: var(--on-night); }
+.footer__row > * { padding: 1rem clamp(1rem, 1.8vw, 1.5rem); background: var(--night); }
+/* name and local time share the first cell */
+.footer__row > .footer__lead {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem 1.5rem;
+  padding-inline: clamp(1.5rem, 3.5vw, 3rem);
+}
+.footer__name { color: var(--on-night); }
+.clock { display: flex; flex-wrap: wrap; column-gap: 0.6em; margin: 0; }
+.clock__label { color: var(--night-text); }
+.clock__time { color: var(--on-night); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.clock abbr { text-decoration: none; }
 .footer__name { display: flex; flex-wrap: wrap; column-gap: 0.5em; }
 .footer__role { color: var(--night-text); }
 .footer__link {
@@ -2384,35 +2421,87 @@ main:not(:has(> .contact:last-child)) + .footer { padding-top: clamp(1.5rem, 3vw
 
 /* ---------- Mobile ---------- */
 
-/* Nav: name and links on one line; the role line goes */
-@media (max-width: 900px) {
-  .nav__inner { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
-  .nav__role { display: none; }
-  .nav__mid { margin-right: auto; }
-  .nav__name { white-space: nowrap; }
-  .nav__links { gap: clamp(0.9rem, 2.4vw, 1.5rem); }
-  .nav__links a { white-space: nowrap; }
-}
+/* Nav on phones: one row (name; theme switch and menu button), the links in a menu below it */
+@media (max-width: 760px) {
+  .nav__inner { gap: 0.5rem; min-height: 56px; }
+  .nav__brand { padding-block: 0.4rem; }
+  /* 40px to look compact in the bar; the outline below stretches its tap area to 44px */
+  .nav__cta { position: relative; min-height: 40px; padding-inline: 0.85rem; }
+  .nav__cta::after { content: ''; position: absolute; inset: -2px 0; }
 
-/* just above phone width the links fill the row, so the clock steps out until it fits again */
-@media (min-width: 601px) and (max-width: 660px) {
-  .nav__clock { display: none; }
-}
+  .nav__menu-btn {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    margin-right: -10px; /* the icon lines up with the page edge; the tap area runs past it */
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--blue);
+    cursor: pointer;
+  }
+  /* two lines that turn into a cross while the menu is open */
+  .nav__menu-icon, .nav__menu-icon::before { display: block; width: 20px; height: 1.5px; background: currentColor; }
+  .nav__menu-icon { position: relative; translate: 0 -3.5px; }
+  .nav__menu-icon::before { content: ''; position: absolute; top: 7px; }
+  [aria-expanded='true'] > .nav__menu-icon { translate: none; rotate: 45deg; }
+  [aria-expanded='true'] > .nav__menu-icon::before { top: 0; rotate: -90deg; }
 
-/* Nav on phones: the name above, then all six links across the full width */
-@media (max-width: 600px) {
-  :root { --nav-h: 92px; }
-  .nav__inner { flex-wrap: wrap; row-gap: 0; }
-  .nav nav { flex: 1 0 100%; order: 1; }
-  /* the clock sits beside the name, the theme switch at the row's end */
-  .nav__clock { font-size: 0.8rem; }
-  .theme-toggle { width: 44px; height: 44px; margin-right: -4px; border-color: transparent; }
-  .theme-toggle:hover { border-color: transparent; }
-  .nav__links { justify-content: space-between; gap: 0.5rem; }
-  /* every link a tap target at least 44px tall; the underline keeps its place under the text */
-  .nav__name,
-  .nav__links a { display: inline-flex; align-items: center; min-height: 44px; }
-  .nav__links a { padding-block: 0; font-size: 0.9rem; background-position: 0 calc(50% + 0.7em); }
+  /* the menu: a panel under the bar, over a dimmed page that closes it when tapped */
+  .nav nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    display: block;
+    margin: 0;
+    max-height: calc(100dvh - 100%);
+    overflow-y: auto;
+    border-bottom: 1px solid var(--rule);
+    background: var(--paper);
+    visibility: hidden;
+    opacity: 0;
+  }
+  .nav[data-open] nav { visibility: visible; opacity: 1; }
+  .nav[data-open] .nav__scrim {
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: 100dvh;
+    background: rgb(5 12 28 / 0.4);
+  }
+  .nav__links { display: grid; gap: 0; padding: 0.25rem var(--gutter) 0; }
+  .nav__links li + li { border-top: 1px solid var(--line); }
+  .nav__links a {
+    display: flex;
+    align-items: center;
+    min-height: 52px;
+    padding-block: 0;
+    font-size: 1.15rem;
+    background: none;
+  }
+  /* the theme switch as the menu's last row: its name on the left, the sun or moon on the right */
+  .nav__theme { padding: 0 var(--gutter) 1rem; }
+  .theme-toggle {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-height: 52px;
+    border: 0;
+    border-top: 1px solid var(--line);
+    font: inherit;
+    font-size: 1.15rem;
+    font-weight: 500;
+  }
+  .theme-toggle:hover { background: none; }
+  .theme-toggle__label { display: block; }
+  [data-theme='dark'] .theme-toggle__label { color: var(--graphite); }
   /* inline padding grows the footer résumé link's tap area to 44px without moving the row */
   .footer__link { padding-block: 14px; }
 }
@@ -2424,8 +2513,8 @@ main:not(:has(> .contact:last-child)) + .footer { padding-top: clamp(1.5rem, 3vw
   .cgrid__links { grid-row: auto; grid-column: 1 / -1; }
   .clink { min-height: 6.5rem; }
   .footer__row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .footer__row > .footer__name { padding-inline: clamp(1rem, 1.8vw, 1.5rem); }
-  .footer__row > p:last-child { grid-column: 1 / -1; }
+  .footer__row > .footer__lead { padding-inline: clamp(1rem, 1.8vw, 1.5rem); }
+  .footer__row > .footer__lead { grid-column: 1 / -1; }
 }
 
 @media (max-width: 760px) {
@@ -2489,9 +2578,10 @@ main:not(:has(> .contact:last-child)) + .footer { padding-top: clamp(1.5rem, 3vw
   :is(body, .hero, .work, .about, .contact, .footer, .phead--dark) { --g-major: transparent; --g-plus: none; }
   :is(body, .about) { --g-minor: rgb(7 55 123 / 0.035); }
   .hero { --g-minor: rgb(7 55 123 / 0.045); }
-  [data-theme='dark'] :is(body, .about) { --g-minor: rgb(255 255 255 / 0.025); }
-  [data-theme='dark'] .hero { --g-minor: rgb(255 255 255 / 0.035); }
-  [data-theme='dark'] :is(.work, .contact, .footer, .phead--dark) { --g-minor: rgb(255 255 255 / 0.025); }
+  [data-theme='dark'] :is(body, .about) { --g-minor: rgb(255 255 255 / 0.02); }
+  [data-theme='dark'] .hero { --g-minor: rgb(255 255 255 / 0.03); }
+  [data-theme='dark'] :is(.contact, .footer, .phead--dark) { --g-minor: rgb(255 255 255 / 0.02); }
+  [data-theme='dark'] .work { --g-minor: rgb(255 255 255 / 0.014); }
   :is(.work, .contact, .footer, .phead--dark) { --g-minor: rgb(255 255 255 / 0.05); }
   /* toolbar: pointer, frame and text only, small, centred at the foot of the hero */
   .hero__bar { align-self: center; margin-top: 1.75rem; gap: 4px; padding: 4px; border-radius: 10px; box-shadow: 0 10px 22px -14px rgb(11 31 63 / 0.55); }
@@ -2545,8 +2635,6 @@ main:not(:has(> .contact:last-child)) + .footer { padding-top: clamp(1.5rem, 3vw
 }
 
 @media (max-width: 350px) {
-  .nav__links { gap: 0.2rem; }
-  .nav__links a { font-size: 0.8rem; letter-spacing: -0.01em; }
 }
 
 /* Phones: shorter, smaller entrances. RevealManager also starts them just before the content

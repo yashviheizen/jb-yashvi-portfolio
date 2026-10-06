@@ -1,4 +1,5 @@
 import { contact } from '../data/projects'
+import Clock from './Clock'
 
 /** A compact closing row; on the home page it reads as the last row of the Contact grid */
 export default function Footer() {
@@ -6,9 +7,12 @@ export default function Footer() {
     <footer className="footer" aria-label="Footer">
       <div className="wrap">
         <div className="footer__row">
-          <p className="footer__name">
-            Jb Yashvi <span className="footer__role">Product Designer</span>
-          </p>
+          <div className="footer__lead">
+            <p className="footer__name">
+              Jb Yashvi <span className="footer__role">Product Designer</span>
+            </p>
+            <Clock />
+          </div>
           <p>
             <a className="footer__link" href={contact.resume} target="_blank" rel="noreferrer">
               Résumé <span aria-hidden="true">↗</span>

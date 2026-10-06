@@ -141,6 +141,8 @@ export const nextProject = (slug: string) => {
 export const contact = {
   email: 'jbieyashvi011@gmail.com',
   linkedin: 'https://www.linkedin.com/in/jb-yashvi/',
+  /** 30-minute call booking, opened in a new tab */
+  calendly: 'https://calendly.com/jbieyashvi011/30min',
   /** Prototype demos */
   instagram: 'https://www.instagram.com/jbie_uiux/',
   /** Résumé PDF in public/resume, opened in a new tab (not a forced download). BASE_URL keeps
