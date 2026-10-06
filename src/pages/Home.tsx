@@ -44,7 +44,7 @@ function toTop(e: MouseEvent) {
 const noop = () => {}
 
 export default function Home() {
-  useTitle('Jb Yashvi, Product Designer')
+  useTitle('Jb Yashvi, Senior Product Designer')
   // iOS Safari only applies :active (the images' colour during a press) once a touch listener
   // exists; a passive one never delays or cancels a tap
   useEffect(() => {
@@ -69,7 +69,7 @@ export default function Home() {
               <p className="about__intro">
                 I’m Jb Yashvi
                 <img className="about__avatar" src="/about/cafe-avatar.webp" width={240} height={240} alt="" loading="lazy" decoding="async" />,
-                a product designer at Heizen. I design web and mobile experiences, simplify complex workflows, and bring
+                a senior product designer at Heizen. I design web and mobile experiences, simplify complex workflows, and bring
                 ideas to life with AI.
               </p>
             </div>
@@ -102,7 +102,7 @@ export default function Home() {
               <dl className="about__facts">
                 <div>
                   <dt>Currently</dt>
-                  <dd>Product designer at Heizen</dd>
+                  <dd>Senior product designer at Heizen</dd>
                 </div>
                 <div>
                   <dt>Skills</dt>

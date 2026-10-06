@@ -21,7 +21,7 @@ export interface Role {
 export const roles: Role[] = [
   {
     company: 'Heizen',
-    role: 'Product Designer',
+    role: 'Senior Product Designer',
     from: '2025',
     to: 'Present',
     current: true,
