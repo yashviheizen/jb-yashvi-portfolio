@@ -22,17 +22,18 @@
   --blue-fill: var(--blue); /* solid blue behind white text */
   --brand: #07377b; /* deep blue that stays deep blue: text on white surfaces, the intro */
   --title-1: #172238; /* the hero's "PRODUCT" */
-  --bar: #f1f3f6; /* the hero toolbar: a quiet grey picture of one */
-  --bar-edge: #e0e5ec;
+  --bar: #1e2027; /* the hero toolbar: a charcoal picture of one */
+  --bar-edge: transparent;
   --cell-off: #e4e9f1; /* unlit year squares */
   --about-line: #dbe4f0;
   --on-night: #fff; /* text and lines on the blue (dark: charcoal) sections */
   --on-fill: #fff; /* text on --blue-fill */
-  --tag: #f1f3f6; /* the hero's "What I do" note: neutral grey, information not a control */
+  --tag: #e8eef9; /* the hero's "What I do" note: pale blue, information not a control */
+  --tag-edge: #c9d4e4;
   --on-tag: var(--ink);
   --tag-head: var(--graphite);
-  --on-bar: #6b7891; /* toolbar icons */
-  --tool-on: #dde2ea; /* the toolbar's selected tool */
+  --on-bar: #fff; /* toolbar icons */
+  --tool-on: #1f5fc4; /* the toolbar's selected tool */
 
   /* the canvas grid (see "Canvas grid"): cells, a stronger line every five, plus marks */
   --cell: 48px;
@@ -74,9 +75,10 @@
   --title-1: var(--ink);
   --bar: #1e2027;
   --bar-edge: rgb(255 255 255 / 0.1);
-  --tool-on: #2c2f38;
-  --on-bar: #8d93a0;
+  --tool-on: #4a74e8;
+  --on-bar: #f2f3f5;
   --tag: #1e2027;
+  --tag-edge: rgb(255 255 255 / 0.1);
   --on-tag: #f2f3f5;
   --tag-head: #a8adb8;
   --cell-off: #262830;
@@ -349,7 +351,7 @@ body, .hero, .work, .about, .contact, .footer, .phead--dark {
 .nav__role { color: var(--graphite); font-size: 0.8rem; white-space: nowrap; }
 
 /* the phone menu's button and scrim; hidden while the links fit in the bar */
-.nav__menu-btn, .nav__scrim, .theme-toggle__label { display: none; }
+.nav__menu-btn, .nav__scrim { display: none; }
 
 .nav nav { display: flex; align-items: center; gap: clamp(1.25rem, 2.4vw, 2.25rem); margin-inline: 1.5rem 0.6rem; }
 
@@ -524,16 +526,16 @@ body, .hero, .work, .about, .contact, .footer, .phead--dark {
 }
 .hero__label .hero__icon { font-size: 0.9rem; }
 
-/* the corner labels: quiet grey notes pinned over the frame's edge, information not controls */
+/* the corner labels: soft notes pinned over the frame's edge, information not controls */
 .hero__tag {
   position: absolute;
   z-index: 1;
   background: var(--tag);
   color: var(--on-tag);
   white-space: nowrap;
-  outline: 1px solid var(--bar-edge);
+  outline: 1px solid var(--tag-edge);
   outline-offset: -1px;
-  box-shadow: 0 6px 16px -12px rgb(11 31 63 / 0.25);
+  box-shadow: 0 8px 20px -12px rgb(7 55 123 / 0.28);
 }
 [data-theme='dark'] .hero__tag { box-shadow: 0 6px 16px -12px rgb(0 0 0 / 0.6); }
 .hero__tag-head { color: var(--tag-head); font-size: 0.8rem; font-weight: 500; margin-bottom: 0.4rem; }
@@ -593,8 +595,8 @@ body, .hero, .work, .about, .contact, .footer, .phead--dark {
   border-radius: 8px;
   font-size: 20px;
 }
-.hero__tool.is-on { background: var(--tool-on); color: var(--ink); }
-.hero__bar-rule { width: 1px; height: 24px; margin-inline: 8px; background: var(--rule); }
+.hero__tool.is-on { background: var(--tool-on); color: #fff; }
+.hero__bar-rule { width: 1px; height: 24px; margin-inline: 8px; background: rgb(255 255 255 / 0.22); }
 
 .hero__foot {
   display: flex;
@@ -2028,6 +2030,36 @@ html.has-intro { --in: 0.8s; }
   transition: text-decoration-color 0.2s;
 }
 .footer__link:hover { text-decoration-color: var(--on-night); }
+/* the Appearance setting: a full-width row under the footer, quieter than the contact actions */
+.footer__row > .footer__settings { grid-column: 1 / -1; padding-block: 0.75rem; padding-inline: clamp(1.5rem, 3.5vw, 3rem); }
+.appearance { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1.25rem; }
+.appearance__label { color: var(--night-text); }
+.appearance__options { display: inline-flex; padding: 3px; gap: 3px; border: 1px solid var(--night-rule); }
+.appearance__option {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 38px;
+  padding: 0 0.85rem;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--night-text);
+  font: inherit;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+.appearance__option svg { fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.appearance__moon { fill: currentColor; }
+.appearance__option:hover { color: var(--on-night); background: var(--night-hover); }
+/* the current one: a lighter panel, an edge and full-strength text */
+.appearance__option[aria-pressed='true'] {
+  border-color: var(--night-rule);
+  background: rgb(255 255 255 / 0.14);
+  color: var(--on-night);
+  font-weight: 500;
+  cursor: default;
+}
+.appearance__option:focus-visible { outline: 2px solid var(--on-night); outline-offset: 2px; }
 /* on pages that end with the Contact grid, the two share one rule */
 main:has(> .contact:last-child) + .footer .footer__row { border-top: 0; }
 /* elsewhere the blue strip begins the footer, so it gets some room above */
@@ -2510,7 +2542,7 @@ main:not(:has(> .contact:last-child)) + .footer { padding-top: clamp(1.5rem, 3vw
     height: 100dvh;
     background: rgb(5 12 28 / 0.4);
   }
-  .nav__links { display: grid; gap: 0; padding: 0.25rem var(--gutter) 0; }
+  .nav__links { display: grid; gap: 0; padding: 0.25rem var(--gutter) 0.5rem; }
   .nav__links li + li { border-top: 1px solid var(--line); }
   .nav__links a {
     display: flex;
@@ -2520,26 +2552,11 @@ main:not(:has(> .contact:last-child)) + .footer { padding-top: clamp(1.5rem, 3vw
     font-size: 1.15rem;
     background: none;
   }
-  /* the theme switch as the menu's last row: its name on the left, the sun or moon on the right */
-  .nav__theme { padding: 0 var(--gutter) 1rem; }
-  .theme-toggle {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    min-height: 52px;
-    border: 0;
-    border-top: 1px solid var(--line);
-    font: inherit;
-    font-size: 1.15rem;
-    font-weight: 500;
-  }
-  .theme-toggle:hover { background: none; }
-  .theme-toggle__label { display: block; }
-  [data-theme='dark'] .theme-toggle__label { color: var(--graphite); }
+  /* the theme is set in the footer's Appearance row on phones, so the menu is links only */
+  .nav__theme { display: none; }
   /* inline padding grows the footer résumé link's tap area to 44px without moving the row */
   .footer__link { padding-block: 14px; }
+  .appearance__option { min-height: 44px; padding-inline: 1.1rem; }
 }
 
 /* Contact: the main cell above the links, which stay two across until phone width */
@@ -2551,6 +2568,7 @@ main:not(:has(> .contact:last-child)) + .footer { padding-top: clamp(1.5rem, 3vw
   .footer__row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .footer__row > .footer__lead { padding-inline: clamp(1rem, 1.8vw, 1.5rem); }
   .footer__row > .footer__lead { grid-column: 1 / -1; }
+  .footer__row > .footer__settings { padding-inline: clamp(1rem, 1.8vw, 1.5rem); }
 }
 
 @media (max-width: 760px) {
@@ -2608,6 +2626,7 @@ main:not(:has(> .contact:last-child)) + .footer { padding-top: clamp(1.5rem, 3vw
   .hero__tag--skills li { gap: 0; font-size: 0.875rem; line-height: 1.5; }
   .hero__tag--skills li + li::before { content: "·"; margin-inline: 0.45em; }
   .hero__tag--skills li .hero__icon { display: none; }
+  [data-theme='dark'] .hero__tag--skills { box-shadow: none; }
   .hero__tag--tools { display: none; }
   /* the canvas grid, simplified: larger plain cells, no major lines or plus marks */
   :root { --cell: 56px; }

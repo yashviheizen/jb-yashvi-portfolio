@@ -56,9 +56,10 @@ function useSectionInView(on: boolean) {
 
 /**
  * The header: name and role on the left; the links, theme switch and a Contact now button on
- * the right. On phones the bar keeps the name, the button and a menu control; the links and
- * the theme switch fold into a menu that opens below the bar. It closes on a link, Escape, a
- * tap outside it, or when the screen grows wide enough to show the links again.
+ * the right. On phones the bar keeps the name, the button and a menu control; the links fold
+ * into a menu that opens below the bar, and the theme is set in the footer's Appearance row.
+ * The menu closes on a link, Escape, a tap outside it, or when the screen grows wide enough
+ * to show the links again.
  */
 export default function Nav() {
   const { pathname, hash } = useLocation()
@@ -121,7 +122,7 @@ export default function Nav() {
               </a>
             </li>
           </ul>
-          {/* beside the links on wider screens; a row of its own in the phone menu */}
+          {/* beside the links on wider screens; on phones the footer's Appearance row sets it */}
           <div className="nav__theme">
             <ThemeToggle />
           </div>

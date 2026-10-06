@@ -43,9 +43,9 @@ const TOOLS: IconName[] = ['pointer', 'frame', 'rect', 'pen', 'text']
  * The hero as a design canvas: a small introduction, then the headline inside a tilted
  * selection frame with eight handles and a component label, two small labels hanging off its
  * corners, and a design-tool toolbar beneath it. The frame, labels and toolbar are decoration
- * (plain text and pictures: no controls, no pointer events, no keyboard stops) and are styled
- * in neutral greys so they never read as buttons; the only blue fill, and the only interactive
- * element, is the CTA. They appear once, in sequence, and then stay still.
+ * (plain text and pictures: no controls, no pointer events, no keyboard stops): the labels are
+ * soft notes, not buttons, and the toolbar is a picture of one. The only interactive element is
+ * the CTA. They appear once, in sequence, and then stay still.
  */
 export default function HeroCanvas() {
   return (
