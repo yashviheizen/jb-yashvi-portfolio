@@ -32,3 +32,4 @@ dist-ssr
 capture/
 /Jb-Yashvi-Resume.pdf
 scripts/_*.mjs
+.env*
