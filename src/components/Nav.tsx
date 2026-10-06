@@ -1,5 +1,7 @@
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { contact } from '../data/projects'
+import Clock from './Clock'
+import ThemeToggle from './ThemeToggle'
 
 export default function Nav() {
   const { pathname } = useLocation()
@@ -12,7 +14,10 @@ export default function Nav() {
         <Link to="/" className="nav__name" aria-label="Jb Yashvi, home">
           Jb Yashvi
         </Link>
-        <span className="nav__role">Product Designer</span>
+        <div className="nav__mid">
+          <span className="nav__role">Product Designer</span>
+          <Clock />
+        </div>
         <nav aria-label="Primary">
           <ul className="nav__links">
             <li><NavLink to={to('work')}>Work</NavLink></li>
@@ -27,6 +32,7 @@ export default function Nav() {
             </li>
           </ul>
         </nav>
+        <ThemeToggle />
       </div>
     </header>
   )

@@ -6,6 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Jb Yashvi is a product designer who designs thoughtful digital products and brings ideas to life with AI." />
     <meta name="theme-color" content="#ffffff" />
+    <!-- Theme: the visitor's saved choice, else their system setting. Set before first paint
+         (so before the stylesheets) to avoid a flash of the wrong theme. -->
+    <script>
+      (function () {
+        var t
+        try { t = localStorage.getItem('jb-theme') } catch (e) {}
+        if (t !== 'light' && t !== 'dark') t = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        document.documentElement.dataset.theme = t
+        document.querySelector('meta[name="theme-color"]').content = t === 'dark' ? '#071530' : '#ffffff'
+      })()
+    </script>
     <!-- Branded intro: only on the first homepage load in this tab session, never with a
          #hash, on another page, after a reload or with reduced motion. Decided before first
          paint (so it sits before the stylesheets); if the app never mounts, the failsafe
