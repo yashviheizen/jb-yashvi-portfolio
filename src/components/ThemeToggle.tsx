@@ -1,9 +1,9 @@
 import { setTheme, useTheme } from './theme'
 
 /**
- * Sun and moon switch in the header on wider screens. The page starts light for every visitor,
- * whatever their system theme; dark only when they choose it, here or in the footer, and that
- * choice is remembered on this device.
+ * Sun and moon switch in the header. The page starts light for every visitor, whatever their
+ * system theme; dark only when they choose it here, and that choice is remembered on this
+ * device. Its label names what a press does.
  */
 export default function ThemeToggle() {
   const dark = useTheme() === 'dark'
@@ -11,8 +11,7 @@ export default function ThemeToggle() {
     <button
       type="button"
       className="theme-toggle"
-      aria-label="Dark theme"
-      aria-pressed={dark}
+      aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}
       onClick={() => setTheme(dark ? 'light' : 'dark')}
     >
       <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">

@@ -8,7 +8,7 @@ const PIN_QUERY = '(min-width: 761px) and (min-height: 560px) and (prefers-reduc
 const HOLD = 0.3
 
 const pad = (v: number) => String(v).padStart(2, '0')
-const TAG = { designed: 'Designed by me', ai: 'Built with AI' } as const
+const TAG = { designed: 'Designed by me', ai: 'Made with AI' } as const
 
 /**
  * Selected work as one sideways track. On wide screens the stage sticks under the nav and
@@ -119,7 +119,7 @@ export default function WorkShowcase() {
         <div className="wrap hs__head" data-reveal>
           <h2 id="work-title" className="hs__title">Selected work</h2>
           <p className="hs__note">
-            Six projects: two products I designed myself, and four websites and prototypes built with AI.
+            Six products: two I designed end to end by hand, and four where I used AI to design and build what’s shown here.
           </p>
         </div>
 

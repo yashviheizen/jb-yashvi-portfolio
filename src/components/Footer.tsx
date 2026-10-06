@@ -1,11 +1,7 @@
 import { contact } from '../data/projects'
-import Appearance from './Appearance'
 import Clock from './Clock'
 
-/**
- * A compact closing row; on the home page it reads as the last row of the Contact grid. Below
- * it, across the full width, the Appearance setting (Light or Dark).
- */
+/** A compact closing row; on the home page it reads as the last row of the Contact grid. */
 export default function Footer() {
   return (
     <footer className="footer" aria-label="Footer">
@@ -24,9 +20,6 @@ export default function Footer() {
             </a>
           </p>
           <p>© {new Date().getFullYear()}</p>
-          <div className="footer__settings">
-            <Appearance />
-          </div>
         </div>
       </div>
     </footer>

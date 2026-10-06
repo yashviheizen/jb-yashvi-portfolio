@@ -9,30 +9,31 @@ import { getProject } from '../data/projects'
 const LINK = 'https://yashviheizen.github.io/iica-mobile-app-prototype/#/home'
 
 export default function Iica() {
-  useTitle('IICA, AI-built mobile prototype | Jb Yashvi')
+  useTitle('IICA, creator collaboration mobile app | Jb Yashvi')
   return (
     <article>
       <ProjectHeader
         name="IICA"
-        type="AI-built interactive mobile prototype"
+        type="Creator collaboration mobile app"
         intro={
           <>
             <p className="lede">
-              IICA is a mobile app concept for creators, artists and influencers: a place to discover people, view their
-              profiles, find collaborators, attend events, take classes and shop.
+              IICA is a mobile app for creators, artists and influencers: a place to discover people, view their profiles,
+              find collaborators, attend events, take classes and shop.
             </p>
             <p>
-              This is an interactive prototype built fully with AI. You can tap through it in the browser; it is not a
-              released app.
+              My contribution is the app’s interactive prototype, shown here, which I built fully with AI to work out
+              these flows. You can tap through it in the browser.
             </p>
           </>
         }
         meta={[
-          { label: 'Format', value: 'Interactive prototype, not a released app' },
-          { label: 'How it was made', value: 'Built fully with AI' },
+          { label: 'Product', value: 'Mobile app for creators, artists and influencers' },
+          { label: 'Shown here', value: 'Interactive prototype' },
+          { label: 'Use of AI', value: 'Prototype built fully with AI' },
           { label: 'Areas', value: 'Discovery, profiles, collaboration, events, classes, shopping' },
         ]}
-        actions={<External href={LINK}>Explore prototype</External>}
+        actions={<External href={LINK}>View interactive prototype</External>}
       />
 
       <section className="wrap showcase" aria-label="Prototype preview">
@@ -68,10 +69,6 @@ export default function Iica() {
             A creator describes the collaborator they need in their own words, then reviews suggested matches one card at a
             time and opens the details behind each one.
           </p>
-          <p className="aside-note">
-            The screen labels this “AI-powered matching”. In the prototype, matching is a designed interaction with sample
-            data; it does not run on a working AI backend.
-          </p>
         </Flow>
 
         <Flow
@@ -89,7 +86,7 @@ export default function Iica() {
         </Flow>
 
         <div className="end-cta">
-          <External href={LINK}>Explore prototype</External>
+          <External href={LINK}>View interactive prototype</External>
         </div>
       </section>
 

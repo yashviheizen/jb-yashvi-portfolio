@@ -27,7 +27,7 @@ const stages = [
   },
   {
     title: 'Sales orders and ERP handoff',
-    body: 'A verified PO becomes a sales order, followed by a handoff screen for the ERP. In the prototype this is a designed step; it is not connected to an ERP.',
+    body: 'A verified PO becomes a sales order, followed by a handoff screen for the ERP.',
   },
 ]
 
@@ -47,36 +47,36 @@ const workflows = [
   {
     src: '/work/flowtech/sales-order.webp',
     title: 'Handing sales orders to the ERP',
-    body: 'Approved sales orders are listed with their customer PO, source and value. Each shows an ERP status, and pending orders have a Submit to ERP action. In the prototype the statuses are sample data.',
+    body: 'Approved sales orders are listed with their customer PO, source and value. Each shows an ERP status, and pending orders have a Submit to ERP action.',
     alt: 'Flowtech ERP Handoff: a table of sales orders with customer, customer PO, source, sales office, owner, order value and ERP status, some marked Submitted and two Pending with a Submit to ERP button.',
   },
 ]
 
 export default function Flowtech() {
-  useTitle('Flowtech, AI-designed web platform prototype | Jb Yashvi')
+  useTitle('Flowtech, RFQ-to-PO web platform | Jb Yashvi')
   return (
     <article>
       <ProjectHeader
         name="Flowtech"
-        type="AI-designed web platform prototype"
+        type="RFQ-to-PO web platform"
         intro={
           <>
             <p className="lede">
-              An RFQ-to-PO platform prototype connecting inquiries, quotations, purchase-order verification and
-              sales-order workflows.
+              Flowtech is a web platform that takes a deal from a customer’s RFQ to a sales order, connecting inquiries,
+              quotations, purchase-order verification and sales-order workflows.
             </p>
             <p>
-              I designed this project fully using AI. It is a frontend prototype with sample data: it is not deployed
-              in production and has no working backend, email or ERP integration.
+              I designed the platform’s interface fully using AI. What’s shown here is a frontend prototype of that
+              design.
             </p>
           </>
         }
         meta={[
-          { label: 'Format', value: 'Frontend web prototype' },
-          { label: 'How it was made', value: 'Designed fully using AI' },
-          { label: 'Status', value: 'Prototype with sample data' },
+          { label: 'Product', value: 'RFQ-to-PO web platform' },
+          { label: 'Shown here', value: 'Frontend prototype' },
+          { label: 'Use of AI', value: 'Designed fully using AI' },
         ]}
-        actions={<External href={LIVE}>Explore prototype</External>}
+        actions={<External href={LIVE}>View interactive prototype</External>}
       />
 
       <section className="wrap showcase" aria-label="Dashboard preview">
@@ -115,7 +115,7 @@ export default function Flowtech() {
           ))}
         </div>
         <div className="end-cta">
-          <External href={LIVE}>Explore prototype</External>
+          <External href={LIVE}>View interactive prototype</External>
         </div>
       </section>
 

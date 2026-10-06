@@ -48,12 +48,12 @@ const highlights = [
 ]
 
 export default function Medurun() {
-  useTitle('Medurun, AI-built landing page | Jb Yashvi')
+  useTitle('Medurun, ambulance-booking platform landing page | Jb Yashvi')
   return (
     <article>
       <ProjectHeader
         name="Medurun"
-        type="AI-built live landing page"
+        type="Ambulance-booking platform landing page"
         intro={
           <>
             <p className="lede">
@@ -61,7 +61,7 @@ export default function Medurun() {
               network to patients, hospitals, agencies and ambulance crews.
             </p>
             <p>
-              This landing page was built fully with AI and is live on the web. Medurun also has admin, user and driver
+              I built this landing page fully with AI, and it is live on the web. Medurun also has admin, user and driver
               apps; they aren’t part of this showcase.
             </p>
           </>

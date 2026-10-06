@@ -14,8 +14,8 @@ function apply(t: Theme) {
 }
 
 /**
- * Every theme control reads the page's theme attribute, so the header switch and the footer's
- * Appearance control always agree. A choice made in another tab follows here too.
+ * Every theme switch reads the page's theme attribute, so they always agree. A choice made in
+ * another tab follows here too.
  */
 function subscribe(onChange: () => void) {
   const mo = new MutationObserver(onChange)

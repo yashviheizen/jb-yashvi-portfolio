@@ -10,12 +10,12 @@ const LINK = 'https://jbieyashvi.github.io/retina-prototype/'
 const R = { w: 680, h: 1400 }
 
 export default function Retina() {
-  useTitle('Retina.ai, AI-built store staff prototype | Jb Yashvi')
+  useTitle('Retina.ai, store staff mobile app | Jb Yashvi')
   return (
     <article>
       <ProjectHeader
         name="Retina.ai"
-        type="AI-built store staff mobile prototype"
+        type="Store staff mobile app"
         intro={
           <>
             <p className="lede">
@@ -23,18 +23,18 @@ export default function Retina() {
               product and submit it, without losing work when an upload fails.
             </p>
             <p>
-              This prototype was built fully with AI. It covers one store staff app within the larger Retina.ai project, not
-              the whole platform. It is a clickable prototype with sample data: it has no production deployment, real sign-in
-              or backend.
+              It is one app within the larger Retina.ai project; the rest of the platform isn’t part of this showcase. My
+              contribution is the app’s interactive prototype, shown here, which I built fully with AI.
             </p>
           </>
         }
         meta={[
-          { label: 'Showcased', value: 'Store staff app prototype' },
-          { label: 'How it was made', value: 'Built fully with AI' },
-          { label: 'Status', value: 'Prototype with sample data' },
+          { label: 'Product', value: 'Store staff mobile app, part of Retina.ai' },
+          { label: 'Users', value: 'Store staff' },
+          { label: 'Shown here', value: 'Interactive prototype' },
+          { label: 'Use of AI', value: 'Prototype built fully with AI' },
         ]}
-        actions={<External href={LINK}>Explore prototype</External>}
+        actions={<External href={LINK}>View interactive prototype</External>}
       />
 
       <section className="wrap showcase" aria-label="Prototype preview">
@@ -101,7 +101,7 @@ export default function Retina() {
         </Flow>
 
         <div className="end-cta">
-          <External href={LINK}>Explore prototype</External>
+          <External href={LINK}>View interactive prototype</External>
         </div>
       </section>
 
