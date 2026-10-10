@@ -754,8 +754,12 @@ body, .hero, .work, .about, .contact, .footer, .phead--dark {
   gap: 1.25rem 2.5rem;
   margin-top: clamp(2.5rem, 6svh, 3.75rem);
 }
+/* a hyphenated phrase that should not break at its hyphen */
+.keep { white-space: nowrap; }
+
 .hero__lede {
-  max-width: 27ch;
+  max-width: 48ch;
+  text-wrap: balance;
   font-size: clamp(1.1rem, 1.5vw, 1.35rem);
   font-weight: 400;
   line-height: 1.3;

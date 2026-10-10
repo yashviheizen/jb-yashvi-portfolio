@@ -1,9 +1,9 @@
 /*
  * My journey: the Experience section of Jb-Yashvi-Resume.pdf (project root and
- * public/resume), in the résumé's own order. Company names, roles, dates and bullet text are
- * copied from it word for word; nothing here is added. The first bullet is the entry's
- * summary, the rest are its details. Some roles overlap, so My journey lists every role with
- * its own dates rather than as a strict sequence.
+ * public/resume, built by scripts/resume.py), in the résumé's own order. Company names, roles,
+ * dates and bullet text are copied from it word for word; nothing here is added. The first
+ * bullet is the entry's summary, the rest are its details. Some roles overlap, so My journey
+ * lists every role with its own dates rather than as a strict sequence.
  */
 
 export interface Role {
@@ -26,11 +26,12 @@ export const roles: Role[] = [
     to: 'Present',
     current: true,
     summary:
-      'Designed web and mobile experiences across multiple client projects, from user research and UX planning to high-fidelity interface design.',
+      'Designed web and mobile experiences for supply chain and operational products across client projects, from user research and UX planning to high-fidelity interface design.',
     details: [
-      'Structured complex workflows for customer-facing applications, admin dashboards and platforms with multiple user roles.',
-      'Used AI-assisted design and prototyping to explore concepts, refine interfaces and create interactive mobile and web experiences.',
-      'Selected work includes NUTRIO, spanning customer, delivery, kitchen and admin experiences, and TAN90, a multi-portal cold-chain logistics platform.',
+      'Designed TAN90, a cold-chain logistics platform, across four portals for admin, warehouse managers, delivery operations and customers, covering orders, inventory, freezing stations, delivery coordination and Proof of Delivery (POD) approval. The product includes an AI-powered POD verification feature.',
+      'Used AI tools to design the interface of Flowtech, an RFQ-to-PO platform connecting inquiries, quotations, purchase-order verification and sales orders, as an interactive frontend prototype.',
+      'Created the design system for CMP Autobot, an ingredient–article mapping workspace for Compass Group India, and built the platform using AI tools.',
+      'Designed NUTRIO across its customer app, delivery partner app, kitchen panel and admin dashboard.',
     ],
   },
   {

@@ -106,10 +106,9 @@ export default function Nav() {
   return (
     <header className="nav" data-open={open || undefined}>
       <div className="nav__inner wrap">
-        <Link to="/" className="nav__brand" aria-label="Jb Yashvi, Product & AI Experience Designer, home">
+        <Link to="/" className="nav__brand" aria-label="Jb Yashvi, Senior Product Designer, home">
           <span className="nav__name">Jb Yashvi</span>
-          {/* on a narrow phone the role breaks between its two halves, never mid-phrase */}
-          <span className="nav__role"><span>Product &amp; AI</span> <span>Experience Designer</span></span>
+          <span className="nav__role">Senior Product Designer</span>
         </Link>
         <nav id="nav-menu" ref={menu} aria-label="Primary">
           <ul className="nav__links">

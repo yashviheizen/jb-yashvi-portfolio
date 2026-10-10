@@ -41,8 +41,8 @@ export const projects: Project[] = [
     track: 'designed',
     type: 'Multi-portal product design',
     summary:
-      'A cold-chain logistics platform connecting admin, warehouse managers, delivery operations and customers.',
-    contribution: 'Product design across all four portals.',
+      'A cold-chain logistics platform, from orders and inventory to delivery. I designed its four portals: admin, warehouse, delivery and customer.',
+    contribution: 'Product design across all four portals, from order management to POD approval.',
     cover: '/work/covers/home/tan90.png',
     coverAlt: 'A tablet with a keyboard showing the Tan90 admin dashboard.',
     coverSize: [1279, 853],
@@ -112,7 +112,7 @@ export const projects: Project[] = [
     track: 'ai',
     type: 'RFQ-to-PO web platform',
     summary:
-      'A web platform connecting inquiries, quotations, purchase-order verification and sales-order workflows.',
+      'An RFQ-to-PO platform that takes a deal from inquiry and quotation to PO verification and sales order. I designed its interface fully using AI.',
     contribution: 'Designed the platform’s interface fully using AI, shown here as a frontend prototype.',
     cover: '/work/covers/home/flowtech.png',
     coverAlt: 'A laptop showing the Flowtech RFQ and PO inbox.',
@@ -135,7 +135,7 @@ export const projects: Project[] = [
     track: 'system',
     type: 'Design system & AI-assisted platform',
     summary:
-      'An ingredient–article mapping workspace for Compass Group India, with the design system behind its interface.',
+      'A workspace where Compass Group India teams map ingredients to articles. I created its design system and built it using AI.',
     contribution: 'Created the design system and built the platform using AI.',
     cover: '/work/covers/home/compass.png',
     coverAlt:
