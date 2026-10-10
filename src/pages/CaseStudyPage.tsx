@@ -1,8 +1,20 @@
+import CaseNav from '../components/CaseNav'
 import CaseStudyViewer from '../components/CaseStudyViewer'
 import External from '../components/External'
 import NextProject from '../components/NextProject'
+import NutrioStory from '../components/NutrioStory'
 import ProjectHeader from '../components/ProjectHeader'
 import useTitle from '../components/useTitle'
+
+const nutrioSections = [
+  { id: 'glance', label: 'At a glance' },
+  { id: 'problem', label: 'User & problem' },
+  { id: 'flow', label: 'Workflow' },
+  { id: 'decisions', label: 'Decisions' },
+  { id: 'contrib', label: 'My role' },
+  { id: 'outcome', label: 'Outcome' },
+  { id: 'full', label: 'Full case study' },
+]
 
 const content = {
   nutrio: {
@@ -67,7 +79,15 @@ export default function CaseStudyPage({ slug }: { slug: 'nutrio' | 'tan90' }) {
   return (
     <article>
       <ProjectHeader name={c.name} type={c.type} intro={c.intro} meta={[...c.meta]} actions={c.actions} />
-      <CaseStudyViewer id={slug} name={c.name} pdf={c.pdf} pdfSize={c.pdfSize} />
+      {slug === 'nutrio' && (
+        <>
+          <CaseNav sections={nutrioSections} />
+          <NutrioStory />
+        </>
+      )}
+      <div id="full" tabIndex={-1}>
+        <CaseStudyViewer id={slug} name={c.name} pdf={c.pdf} pdfSize={c.pdfSize} />
+      </div>
       <NextProject slug={slug} />
     </article>
   )

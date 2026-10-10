@@ -119,7 +119,7 @@ export default function WorkShowcase() {
         <div className="wrap hs__head" data-reveal>
           <h2 id="work-title" className="hs__title">Selected work</h2>
           <p className="hs__note">
-            Seven products: two I designed end to end by hand, four where I used AI to design and build what’s shown here, and one where I created the design system and built the platform with AI.
+            Seven products: one where I created the design system and built the platform with AI, two I designed end to end by hand, and four where I used AI to design and build what’s shown here.
           </p>
         </div>
 

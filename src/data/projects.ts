@@ -24,6 +24,30 @@ export type Mockup =
 
 export const projects: Project[] = [
   {
+    slug: 'compass',
+    name: 'Compass Group — CMP Autobot',
+    track: 'system',
+    type: 'Design system & AI-assisted platform',
+    summary:
+      'A workspace where Compass Group India teams review AI-suggested ingredient-to-article matches, deciding each with Confirm, Reject or Link APL. I created its design system and built it using AI.',
+    contribution: 'Created the design system and built the platform using AI.',
+    cover: '/work/covers/home/compass.png',
+    coverAlt:
+      'The CMP Autobot dashboard in a browser window, beside a card of design tokens: the amber brand colour, Inter, four queue status pills and Confirm and Reject buttons.',
+    coverSize: [1600, 1000],
+    mockup: {
+      device: 'monitor',
+      screens: [
+        {
+          src: '/work/compass/home.webp',
+          alt: 'CMP Autobot Current Status dashboard on a desktop monitor: a Today’s Progress gauge with a Continue mapping button, Needs Attention and Needs Transition banners, a row of stat cards, and Work progress cards for the Matches, Likely Matches, No Match and Retired queues.',
+          w: 2016,
+          h: 1200,
+        },
+      ],
+    },
+  },
+  {
     slug: 'nutrio',
     name: 'NUTRIO',
     track: 'designed',
@@ -129,30 +153,7 @@ export const projects: Project[] = [
       ],
     },
   },
-  {
-    slug: 'compass',
-    name: 'Compass Group — CMP Autobot',
-    track: 'system',
-    type: 'Design system & AI-assisted platform',
-    summary:
-      'A workspace where Compass Group India teams map ingredients to articles. I created its design system and built it using AI.',
-    contribution: 'Created the design system and built the platform using AI.',
-    cover: '/work/covers/home/compass.png',
-    coverAlt:
-      'The CMP Autobot dashboard in a browser window, beside a card of design tokens: the amber brand colour, Inter, four queue status pills and Confirm and Reject buttons.',
-    coverSize: [1600, 1000],
-    mockup: {
-      device: 'monitor',
-      screens: [
-        {
-          src: '/work/compass/home.webp',
-          alt: 'CMP Autobot Current Status dashboard on a desktop monitor: a Today’s Progress gauge with a Continue mapping button, Needs Attention and Needs Transition banners, a row of stat cards, and Work progress cards for the Matches, Likely Matches, No Match and Retired queues.',
-          w: 2016,
-          h: 1200,
-        },
-      ],
-    },
-  },
+
 ]
 
 export const getProject = (slug: string) => projects.find((p) => p.slug === slug)!
